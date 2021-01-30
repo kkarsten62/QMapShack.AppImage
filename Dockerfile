@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && apt-get -y dist-upgrade && apt-get -y install software-properties-common && add-apt-repository -y  ppa:ubuntugis/ppa 
-RUN apt-get -y install build-essential subversion mercurial qt5-default qttools5-dev qttools5-dev-tools libqt5webkit5-dev qtscript5-dev libgdal-dev gdal-bin libghc-bzlib-dev libquazip5-dev libalglib-dev libgdal-grass qtwebengine5-dev git sed wget libsqlite3-dev sqlite3 qtdeclarative5-dev-tools libgraphics-magick-perl swig libpython3-dev python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse
+RUN apt-get -y install build-essential subversion mercurial qt5-default qttools5-dev qttools5-dev-tools libqt5webkit5-dev qtscript5-dev libgdal-dev gdal-bin libghc-bzlib-dev libquazip5-dev libalglib-dev libgdal-grass qtwebengine5-dev git sed wget libsqlite3-dev sqlite3 qtdeclarative5-dev-tools libgraphics-magick-perl swig libpython3-dev python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot fuse python3-gdal libbz2-dev
 
 
 RUN cd /tmp && wget https://github.com/Kitware/CMake/releases/download/v3.19.2/cmake-3.19.2-Linux-x86_64.tar.gz && tar xzf cmake-3.19.2-Linux-x86_64.tar.gz && cd cmake-3.19.2-Linux-x86_64 && tar cpf - * | (cd /usr; tar xpf -)
@@ -15,6 +15,8 @@ RUN git clone https://github.com/Maproom/qmapshack
 RUN mkdir build_QMapShack  && cd build_QMapShack && cmake --DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ../qmapshack/ && make -j 6 install DESTDIR=/AppDir
 
 # https://docs.appimage.org/packaging-guide/from-source/native-binaries.html#examples
-RUN cd /; wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage; wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage ; chmod +x linuxdeploy*.AppImage
 COPY build_AppImage.sh /
+COPY apprun /
+RUN cd /; mkdir /out; chmod +x apprun;  wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage; wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage ; chmod +x linuxdeploy*.AppImage
+
 CMD ["/bin/bash"]
