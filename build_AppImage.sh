@@ -1,0 +1,1 @@
+cd / ; ./linuxdeploy-x86_64.AppImage -l/usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so -l/usr/lib/x86_64-linux-gnu/nss/libnssckbi.so --appdir AppDir --plugin qt --output appimage && mkdir /out && mv QMapShack-x86_64.AppImage out
