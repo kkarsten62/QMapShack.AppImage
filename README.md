@@ -5,24 +5,32 @@ This is an approach to build an AppImage of qmapshack using Docker. I used it as
 
 It's based on Ubuntu 18, hence the AppImage will not run on Ubuntu 16 anymore. But as Ubuntu 16 lacks one Qt library, I wasn't able to use it as a basis.
 
-The AppImage will be created during **build** time of the container in the directory /out, you need to copy the resulting image then out of the container.
+QMapShack will be created during **build** time of the container, the AppImage wil be created during **run time** into the directory /out, you need to copy the resulting image then out of the container.
 
 The build can take a *significant* amount of time!
 
-Exmaple:
+Exmaple to build from source:
 
 ```bash
+git clone https://github.com/harenber/qmapshack-AppImage
+cd qmapshack-AppImage
 docker build -t local:qms .
 docker run -it --privileged --rm local:qms
 ```
 
+Or download from docker hub
+
+```
+docker run -it --privileged --rm harenber/qmapshack-appimage
+
+```
 then, inside the container:
 
 ```bash
 ./build_AppImage.sh 
 ```
 
-after another couple of minutes, the AppImage is in /out:
+after a couple of minutes, the AppImage is in /out:
 
 ```
 root@0943fa3ec3cd:/out# ls
