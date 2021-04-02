@@ -1,22 +1,100 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && apt-get -y dist-upgrade && apt-get -y install software-properties-common && add-apt-repository -y  ppa:ubuntugis/ppa 
-RUN apt-get -y install build-essential subversion mercurial qt5-default qttools5-dev qttools5-dev-tools libqt5webkit5-dev qtscript5-dev libgdal-dev gdal-bin libghc-bzlib-dev libquazip5-dev libalglib-dev libgdal-grass qtwebengine5-dev git sed wget libsqlite3-dev sqlite3 qtdeclarative5-dev-tools libgraphics-magick-perl swig libpython3-dev python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot fuse python3-gdal libbz2-dev
+LABEL 	author="mail@karl-karsten.de" \
+		description="QMapShack Dev Build 2021-04-02"
 
+# Update packages and install UbuntuGIS repository
+RUN apt-get -y update \
+	&& apt-get -y install software-properties-common \
+	&& add-apt-repository -y ppa:ubuntugis/ppa \
+	&& apt-get -y update \
+	&& apt-get -y dist-upgrade
+	
+# Install needed packages
+RUN apt-get -y install build-essential subversion git fuse sqlite3 \
+	qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
+	libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
+	libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
+	libpython3-dev
+#	&& apt-get -y clean \
+#	&& rm -rf /var/lib/apt/lists/*
 
-RUN cd /tmp && wget https://github.com/Kitware/CMake/releases/download/v3.19.2/cmake-3.19.2-Linux-x86_64.tar.gz && tar xzf cmake-3.19.2-Linux-x86_64.tar.gz && cd cmake-3.19.2-Linux-x86_64 && tar cpf - * | (cd /usr; tar xpf -)
-RUN pip3 install appimage-builder && wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /opt/appimagetool && cd /opt/; chmod +x appimagetool; sed -i 's|AI\x02|\x00\x00\x00|' appimagetool; ./appimagetool --appimage-extract && mv /opt/squashfs-root /opt/appimagetool.AppDir && ln -s /opt/appimagetool.AppDir/AppRun /usr/local/bin/appimagetool
+# Install CMake latest version, needed for QUAZIP
+# See https://apt.kitware.com/
+RUN apt-get -y install apt-transport-https ca-certificates gnupg software-properties-common wget \
+	&& wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null \
+	&& apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ bionic main' \
+	&& apt-get update \
+	&& apt-get -y install cmake
 
-RUN cd / && wget https://github.com/stachenov/quazip/archive/v0.9.1.tar.gz && tar xzf v0.9.1.tar.gz && cd quazip-0.9.1 && mkdir /quazip_build && cmake -DCMAKE_INSTALL_PREFIX=/usr -S . -B /quazip_build && cd /quazip_build && make -j 6 && make install && cd / && rm -rf /quazip_build /quazip-0.9.1 v0.9.1.tar.gz		       
+# Install PROJ 8.0.0
+# See https://proj.org/
+RUN wget https://download.osgeo.org/proj/proj-8.0.0.tar.gz \
+	&& tar xzvf proj-8.0.0.tar.gz \
+	&& cd proj-8.0.0 \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+	&& cmake --build . -j2 \
+	&& cmake --build . --target install \
+	&& cd / \
+	&& rm -rf proj-8.0.0.tar.gz proj-8.0.0
 
-RUN cd / && wget https://download.osgeo.org/proj/proj-7.2.1.tar.gz && tar xvzf proj-7.2.1.tar.gz && mkdir build_proj && cd build_proj && cmake -DCMAKE_INSTALL_PREFIX=/usr ../proj-7.2.1 && make -j 6 && make install && cd / && rm -rf build_proj proj-7.2.1.tar.gz
-RUN svn co http://routino.org/svn/trunk routino && cd routino && sed -i.bak "s.prefix=/usr/local.prefix=/usr.g" Makefile.conf && make -j 6 && make install && cd .. && rm -rf routino
-RUN git clone https://github.com/Maproom/qmapshack
-RUN mkdir build_QMapShack  && cd build_QMapShack && cmake --DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ../qmapshack/ && make -j 6 install DESTDIR=/AppDir
+# Install GDAL 3.2.2
+# See https://gdal.org/
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.2.2/gdal-3.2.2.tar.gz \
+	&& tar xvzf gdal-3.2.2.tar.gz \
+	&& cd gdal-3.2.2 \
+	&& ./configure --prefix=/usr \
+	&& make -j2 \
+	&& make install \
+	&& cd / \
+	&& rm -rf gdal-3.2.2.tar.gz gdal-3.2.2
 
-# https://docs.appimage.org/packaging-guide/from-source/native-binaries.html#examples
+# Install QUAZIP 1.1
+# See https://stachenov.github.io/quazip/
+RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
+	&& tar xvzf v1.1.tar.gz \
+	&& cd quazip-1.1 \
+    && mkdir build \
+    && cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+	&& cmake --build . -j2 \
+    && cmake --build . --target install \
+	&& cd / \
+	&& rm -rf xvzf v1.1.tar.gz quazip-1.1
+
+# Install Routino 3.3.3
+# See http://www.routino.org/
+RUN svn co http://routino.org/svn/trunk routino \
+	&& cd routino \
+	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
+	&& make -j2 \
+	&& make install	\
+	&& cd /
+
+# Install QMapShack, latest development commit
+# See https://github.com/Maproom/qmapshack
+RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
+	&& mkdir build_QMapShack \
+	&& cd build_QMapShack \
+	&& cmake ../QMapShack \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_QMAPTOOL=OFF \
+	&& make qmapshack -j2 \
+	&& make install DESTDIR=/AppDir \
+	&& cd /
+
 COPY build_AppImage.sh /
 COPY apprun /
-RUN cd /; mkdir /out; chmod +x apprun;  wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage; wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage ; chmod +x linuxdeploy*.AppImage
 
+# Prepare AppImage
+# See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
+RUN chmod +x apprun \
+	&& mkdir /out \
+	&& wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
+	&& chmod +x linuxdeploy*.AppImage
+
+VOLUME ["/out"]
 CMD ["/bin/bash"]
