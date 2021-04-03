@@ -1,7 +1,6 @@
 FROM ubuntu:18.04
 
-LABEL 	author="mail@karl-karsten.de" \
-		description="QMapShack Dev Build 2021-04-02"
+LABEL description="QMapShack.AppImage development build - Base"
 
 # Update packages and install UbuntuGIS repository
 RUN apt-get -y update \
@@ -10,14 +9,12 @@ RUN apt-get -y update \
 	&& apt-get -y update \
 	&& apt-get -y dist-upgrade
 	
-# Install needed packages
-RUN apt-get -y install build-essential subversion git fuse sqlite3 \
-	qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
-	libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
-	libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
-	libpython3-dev
-#	&& apt-get -y clean \
-#	&& rm -rf /var/lib/apt/lists/*
+# Install needed packages and reinstall kernel
+RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 \
+		qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
+		libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
+		libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
+		libpython3-dev
 
 # Install CMake latest version, needed for QUAZIP
 # See https://apt.kitware.com/
@@ -26,6 +23,9 @@ RUN apt-get -y install apt-transport-https ca-certificates gnupg software-proper
 	&& apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ bionic main' \
 	&& apt-get update \
 	&& apt-get -y install cmake
+
+# Reinstall kernel to load fuse module
+RUN apt-get -y install --reinstall linux-image-5.4.0-70-generic
 
 # Install PROJ 8.0.0
 # See https://proj.org/
@@ -71,7 +71,8 @@ RUN svn co http://routino.org/svn/trunk routino \
 	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
 	&& make -j2 \
 	&& make install	\
-	&& cd /
+	&& cd / \
+	&& rm -rf routino
 
 # Install QMapShack, latest development commit
 # See https://github.com/Maproom/qmapshack
@@ -85,16 +86,30 @@ RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
 	&& make install DESTDIR=/AppDir \
 	&& cd /
 
-COPY build_AppImage.sh /
-COPY apprun /
+# Copy needed PROJ, GDAL, routino data to AppImage folder
+RUN cp -R /usr/share/gdal /AppDir/usr/share \
+	&& cp -R /usr/share/proj /AppDir/usr/share \
+	&& cp -R /usr/share/routino /AppDir/usr/share
+
+# Copy the needed scripts to root path used by docker run
+COPY --chown=root:root build_AppImage.sh apprun.sh /
+
+# Create folder to store image file to export to host
+RUN	mkdir /out
 
 # Prepare AppImage
 # See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
-RUN chmod +x apprun \
-	&& mkdir /out \
-	&& wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+RUN	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
 	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
 	&& chmod +x linuxdeploy*.AppImage
 
-VOLUME ["/out"]
+# Cleansing to reduce space
+RUN apt-get -y clean \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Docker run will open a bash as default
 CMD ["/bin/bash"]
+
+RUN	echo "\n\n=====================================================" \
+	&& echo "QMapShack.AppImage Docker image successfully created!" \
+	&& echo "=====================================================\n\n"
