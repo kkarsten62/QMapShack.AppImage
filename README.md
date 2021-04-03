@@ -5,7 +5,7 @@ Feasibility study to build **one single QMapShack executable file** based on **Q
 
 * You are using a Linux distribution like Ubuntu, Fedora, Mint, ... ?
 * And you are not coding by your self?
-* And you would like not to set up the complex build ennvironment on your computer?
+* And you would like not to set up the complex build environment on your computer?
 * But you would like to review and test the latest development commits?
 
 Then, may be you could use a ready to go QMapshack AppImage file.
@@ -49,11 +49,13 @@ The Docker image includes the following software components:
 Build the image:
 
 	sudo docker build -t qmapshack-AppImage:0.0.0 .
-*Be pateint and take a coffee, build process will take some time - about 1-2 hours.*
+*Be patient and take a coffee, build process will take some time - about 1-2 hours.*
 
 Check for last information in terminal:
 
-***QMapShack.AppImage BASE image successfully created!***
+	=====================================================
+	QMapShack.AppImage Docker image successfully created
+	=====================================================
 
 ## Run Docker image
 With `docker run` a Docker container will be created based on the Docker image.
@@ -68,6 +70,14 @@ Steps on Docker Run:
 Start building new QMapShack version with:
 
 	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qmapshack-AppImage:0.0.0 /build_AppImage.sh
+	
+Check for last information in terminal:
+
+	===================================================
+	QMapShack.AppImage file successfully created!
+	Check 'out' folder for new QMapShack.AppImage file
+	===================================================
+
 
 *Note: Run again when new commits are in the QMapShack development branch. **And** think about to backup an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun.*
 
@@ -85,6 +95,7 @@ Right now there is no solution to fix.
 ## Docker Ubuntu images are disk space consuming
 Room for Improvement could be to change from Ubuntu to a more lightweight distribution (Alpine Linux?) to reduce the needed disk space.
 
+---
 # Credits
 Many thanks to `harenber` for the base idea and approach.
 <https://hub.docker.com/r/harenber/qmapshack-appimage>

@@ -9,7 +9,7 @@ RUN apt-get -y update \
 	&& apt-get -y update \
 	&& apt-get -y dist-upgrade
 	
-# Install needed packages and reinstall kernel
+# Install needed packages
 RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 \
 		qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
 		libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
@@ -56,11 +56,11 @@ RUN wget https://github.com/OSGeo/gdal/releases/download/v3.2.2/gdal-3.2.2.tar.g
 RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
 	&& tar xvzf v1.1.tar.gz \
 	&& cd quazip-1.1 \
-    && mkdir build \
-    && cd build \
+	&& mkdir build \
+	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j2 \
-    && cmake --build . --target install \
+	&& cmake --build . --target install \
 	&& cd / \
 	&& rm -rf xvzf v1.1.tar.gz quazip-1.1
 
@@ -91,15 +91,15 @@ RUN cp -R /usr/share/gdal /AppDir/usr/share \
 	&& cp -R /usr/share/proj /AppDir/usr/share \
 	&& cp -R /usr/share/routino /AppDir/usr/share
 
-# Copy the needed scripts to root path used by docker run
+# Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /
 
 # Create folder to store image file to export to host
-RUN	mkdir /out
+RUN mkdir /out
 
 # Prepare AppImage
 # See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
-RUN	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
 	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
 	&& chmod +x linuxdeploy*.AppImage
 
@@ -110,6 +110,6 @@ RUN apt-get -y clean \
 # Docker run will open a bash as default
 CMD ["/bin/bash"]
 
-RUN	echo "\n\n=====================================================" \
+RUN echo "\n\n=====================================================" \
 	&& echo "QMapShack.AppImage Docker image successfully created!" \
 	&& echo "=====================================================\n\n"
