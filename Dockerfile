@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-LABEL description="QMapShack.AppImage development build - Base"
+LABEL description="QMapShack.AppImage development build"
 
 # Update packages and install UbuntuGIS repository
 RUN apt-get -y update \
@@ -94,7 +94,7 @@ RUN cp -R /usr/share/gdal /AppDir/usr/share \
 # Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /
 
-# Create folder to store image file to export to host
+# Create folder to store image file to export to host file system
 RUN mkdir /out
 
 # Prepare AppImage

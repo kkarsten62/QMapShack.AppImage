@@ -15,7 +15,7 @@ cd /
 	--appdir AppDir --plugin qt --custom-apprun=/apprun.sh \
 	--output appimage
 
-# Copy to host volume folder
+# Copy to host file system folder
 mv QMapShack-x86_64.AppImage /out
 
 # And finally change to user and group id
