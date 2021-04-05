@@ -102,6 +102,12 @@ RUN mkdir -p /AppDir/usr/share /AppDir/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/share
 
+# Referring to Issue [0]: Fix wrong path settig for Qt5 translations - First try, but this is not the solution
+RUN mkdir -p /AppDir/usr/share/qt5 /AppDir/usr/qt5 \
+	&& cd /AppDir \
+	&& ln -s usr/translations usr/share/qt5/translations \
+	&& ln -s usr/translations usr/qt5/translations
+
 # Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /
 
