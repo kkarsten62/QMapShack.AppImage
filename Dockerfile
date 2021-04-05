@@ -35,7 +35,7 @@ RUN wget https://download.osgeo.org/proj/proj-8.0.0.tar.gz \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-	&& cmake --build . -j2 \
+	&& cmake --build . -j$(nproc) \
 	&& cmake --build . --target install \
 	&& cd / \
 	&& rm -rf proj-8.0.0.tar.gz proj-8.0.0
@@ -46,7 +46,7 @@ RUN wget https://github.com/OSGeo/gdal/releases/download/v3.2.2/gdal-3.2.2.tar.g
 	&& tar xvzf gdal-3.2.2.tar.gz \
 	&& cd gdal-3.2.2 \
 	&& ./configure --prefix=/usr \
-	&& make -j2 \
+	&& make -j$(nproc) \
 	&& make install \
 	&& cd / \
 	&& rm -rf gdal-3.2.2.tar.gz gdal-3.2.2
@@ -59,7 +59,7 @@ RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-	&& cmake --build . -j2 \
+	&& cmake --build . -j$(nproc) \
 	&& cmake --build . --target install \
 	&& cd / \
 	&& rm -rf xvzf v1.1.tar.gz quazip-1.1
@@ -69,7 +69,7 @@ RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
 RUN svn co http://routino.org/svn/trunk routino \
 	&& cd routino \
 	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
-	&& make -j2 \
+	&& make -j$(nproc) \
 	&& make install	\
 	&& cd / \
 	&& rm -rf routino
@@ -83,7 +83,7 @@ RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
 	&& cmake ../QMapShack \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_QMAPTOOL=OFF \
-	&& make qmapshack -j2 \
+	&& make qmapshack -j$(nproc) \
 	&& cd /
 
 # Install AppImage
