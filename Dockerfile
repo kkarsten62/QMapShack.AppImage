@@ -75,6 +75,7 @@ RUN svn co http://routino.org/svn/trunk routino \
 	&& rm -rf routino
 
 # Install QMapShack, latest development commit
+# Make only - No make install
 # See https://github.com/Maproom/qmapshack
 RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
 	&& mkdir build_QMapShack \
@@ -83,21 +84,9 @@ RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_QMAPTOOL=OFF \
 	&& make qmapshack -j2 \
-	&& make install DESTDIR=/AppDir \
 	&& cd /
 
-# Copy needed PROJ, GDAL, routino data to AppImage folder
-RUN cp -R /usr/share/gdal /AppDir/usr/share \
-	&& cp -R /usr/share/proj /AppDir/usr/share \
-	&& cp -R /usr/share/routino /AppDir/usr/share
-
-# Copy the needed scripts from host to root used by docker run
-COPY --chown=root:root build_AppImage.sh apprun.sh /
-
-# Create folder to store image file to export to host file system
-RUN mkdir /out
-
-# Prepare AppImage
+# Install AppImage
 # See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
 RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
 	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
@@ -106,6 +95,15 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 # Cleansing to reduce space
 RUN apt-get -y clean \
 	&& rm -rf /var/lib/apt/lists/*
+
+# Copy needed PROJ, GDAL, routino data to AppDir folder
+RUN mkdir -p /AppDir/usr/share /AppDir/share \
+	&& cp -r /usr/share/gdal /AppDir/usr/share \
+	&& cp -r /usr/share/proj /AppDir/usr/share \
+	&& cp -r /usr/share/routino /AppDir/share
+
+# Copy the needed scripts from host to root used by docker run
+COPY --chown=root:root build_AppImage.sh apprun.sh /
 
 # Docker run will open a bash as default
 CMD ["/bin/bash"]

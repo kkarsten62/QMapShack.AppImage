@@ -5,24 +5,27 @@ Feasibility study to build **ONE single QMapShack executable file** based on **Q
 
 * You are using a Linux distribution like Ubuntu, Fedora, Mint, ... ?
 * And you are not coding by your self?
-* And you would like not to set up the complex build environment on your computer?
+* So you would like not to set up a complex build environment on your computer?
 * But you would like to review and test the latest development commits?
 
-Then, may be you could use a ready to go QMapshack AppImage file.
+Then, may be you could use a ready to go one-click QMapshack.AppImage executable file.
 ## Requirements
 * Computer with 64-bit architecture
 * A Linux distribution - able to run Docker Software
-* About 10 GB free disk space
-* 1-2 hour for the initial base build
-* 5 minutes on each development update
+* At least ~5 GB free disk space
+* 1-2 hour for the initial Docker image build
+* 5 minutes for each development update
 * Some Linux skills to handle a terminal
 ## Be aware
-* You are using software from a development branch. QMapShack is most of time quite stable during development - but there is no guarantee!
-* This setup is valid as long as there is no change in the prerequisites of build QMakeShack (ex. PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according to the changes of the new prerequisites.
-* When already using a stable QMapShack version it is advice to **backup** the existing data (Tracks, Routes, DBs, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also:
+* You are using software from a development branch. QMapShack is most of time quite stable during development process - but there is no guarantee!
+* This setup is valid as long as there are no changes in the prerequisites to build QMakeShack (ex. CMakefile.txt, PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according to the changes of the new prerequisites.
+* When already using a stable QMapShack version it is advice to **backup** the existing personal QMapShack data (Tracks, Routes, DBs, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also:
 
 		cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 
+## Using a ready to go one-click QMapshack.AppImage
+If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from here.
+No further installation is required then - have fun with QMapshack.AppImage.
 # Installation
 ## Install Docker
 Details about Docker and the installation steps for the wide range of Linux distribution can be found here:
@@ -54,7 +57,7 @@ The Docker image based on the following software components:
 	* plus GDAL 3.2.2
 	* plus QUAZIP 1.1
 	* plus Routino 3.3.3
-	* plus QMapshack development branch, with latest commits from 2021-03-27
+	* plus QMapshack development branch
 
 Build the image:
 
@@ -75,12 +78,13 @@ Steps on Docker Run:
 
 * Download (pull) new commits from QMapShack development branch
 * Build new QMapShack version
-* Run AppImage build process
-* Copy final QMapShack.AppImage to `out` folder
+* Run AppImage build process to build one executable file
+* Copy final QMapShack.AppImage  executable file to `out` folder
 
 Start building new QMapShack version with:
 
-	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qmapshack-AppImage:0.0.0 /build_AppImage.sh
+	cd ~/GPS/qmapshack-AppImage
+	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0 /build_AppImage.sh
 	
 Check for latest information in terminal:
 
@@ -91,13 +95,32 @@ Check for latest information in terminal:
 
 *Note: Run again when new commits are in the QMapShack development branch. **And** think about to backup an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun.*
 
-To enter into the container using a bash run:
+Additionally you can enter into the container using a bash run:
 
-	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qmapshack-AppImage:0.0.0
+	cd ~/GPS/qmapshack-AppImage
+	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0
 
+Use `exit` to step out.
 
 # Start QMapShack.AppImage
-	./out/QMapShack-x86_64.AppImage
+	cd ~/GPS/qmapshack-AppImage/out
+	./QMapShack-x86_64.AppImage [options]
+	
+`[options]` according to QMapShack commandline options, see <https://github.com/Maproom/qmapshack/wiki/DocCmdOptions>
+
+# Mount or extract QMapShack.AppImage
+See <https://docs.appimage.org/user-guide/run-appimages.html#mount-an-appimage>
+## Mount
+	cd ~/GPS/qmapshack-AppImage/out
+	./QMapShack-x86_64.AppImage --appimage-mount
+
+Now, use another terminal or file manager to inspect the content of QMapShack.AppImage in the folder printed by `--appimage-mount`.
+
+## Extract
+	cd ~/GPS/qmapshack-AppImage/out
+	./QMapShack-x86_64.AppImage --appimage-extract
+
+A new folder called `squashfs-root` is created, containing the content of QMapShack.AppImage.
 
 # Known issues and topics
 ## Build tested on:
@@ -105,11 +128,11 @@ To enter into the container using a bash run:
 * Ubuntu 20.04
 * Fedora 33
 
-Only some build test performend.
+Only some build test performed.
 **Deep functional tests with tracks, routes, waypoints, maps, DEMS, Routino, DB, etc. still to be done.**
-## Unknown Routino Qt translation files
-When starting a message box appears stating that a language file is missing.
-Right now there is no idea or solution to fix.
+## ROUTINO_XML_PATH
+Seen from AppImage the path to ROUTINO_XML_PATH is a hard-coded path in QMapShack.
+Current bypass solution according to <https://docs.appimage.org/packaging-guide/manual.html> is by setting a temp link during QMapShack run time.
 ## Docker Ubuntu images are disk space consuming
 Room for Improvement could be to change from Ubuntu to a more lightweight distribution (Alpine Linux?) to reduce the needed disk space.
 
