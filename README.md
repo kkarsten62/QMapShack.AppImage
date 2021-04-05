@@ -27,6 +27,9 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 ## Using a ready to go one-click QMapshack.AppImage
 If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from here.
 No further installation is required then - *have fun with QMapshack.AppImage*.
+
+#### [Download on Wiki](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
+
 # Installation
 ## Install Docker
 Details about Docker and the installation steps for the wide range of Linux distribution can be found here:
