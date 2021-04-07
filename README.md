@@ -19,16 +19,17 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 ## Be aware
 * You are using software from a development branch. QMapShack is most of time quite stable during development process - but there is no guarantee!
 * This setup is valid as long as there are no changes in the prerequisites to build QMakeShack (ex. CMakefile.txt, PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according to the changes of the new prerequisites.
-* When already using a stable QMapShack version it is advice to **backup** the existing personal QMapShack data (Tracks, Routes, DBs, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also:
+* When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also, for example in a Ubuntu and Fedora environment:
 
 		cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 	
 * The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See <https://docs.docker.com/engine/install/linux-postinstall/> for more details.
 ## Using a ready to go one-click QMapshack.AppImage
 If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from here.
+
 No further installation is required then - *have fun with QMapshack.AppImage*.
 
-#### [Download on Wiki](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
+### [Download on Wiki](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
 
 # Installation
 ## Install Docker
@@ -97,9 +98,10 @@ Check for latest information in terminal:
 	Check 'out' folder for new QMapShack.AppImage file
 	===================================================
 
-*Note: Run again when new commits are in the QMapShack development branch. **And** think about to backup an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun.*
+*Note: Run again when new commits are in the QMapShack development branch.
+**And** think about to backup an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun.*
 
-Additionally you can enter into the container using a bash run:
+Additionally you can enter into the container by using a bash shell to inspect the content of the QMapShack.AppImage prior to the building process:
 
 	cd ~/GPS/qmapshack-AppImage
 	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0
@@ -144,6 +146,10 @@ In a case of a strange behaviour in handling of QMapShack, it may help to delete
 
 	cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 	rm -rf ~/.config/QLandkarte
+
+A good practices could be also to start QMapShack.AppImage with a dedicated configration file using `-c` option to avoid conflicts with an existing QMapShack installation, like:
+
+	./QMapShack.AppImage -c myConfigFile.conf
 
 ---
 # Credits

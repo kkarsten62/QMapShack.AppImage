@@ -1,22 +1,27 @@
 #! /usr/bin/env bash
 
 # Make and install QMapShack
-# Bypass hard-coded ROUTINO_XML_PATH
-# used to link in the mounted squashfs
-# According to https://docs.appimage.org/packaging-guide/manual.html
 cd /QMapShack
 git pull
 cd /build_QMapShack
-make qmapshack -j2
+make qmapshack -j$(nproc)
 make install DESTDIR=/AppDir
+
+# Bypass hard-coded ROUTINO_XML_PATH
+# used to link in the mounted squashfs
+# According to https://docs.appimage.org/packaging-guide/manual.html
 sed -i -e 's|/usr/share/routino|rout/share/routino|g' /AppDir/usr/bin/qmapshack
 cd /
 
 # Build AppImage
 ./linuxdeploy-x86_64.AppImage \
-	-l/usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so \
-	-l/usr/lib/x86_64-linux-gnu/nss/libnssckbi.so \
-	--appdir AppDir --plugin qt --custom-apprun=/apprun.sh \
+	--library /usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so \
+	--library /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so \
+	--desktop-file /AppDir/usr/share/applications/qmapshack.desktop \
+	--icon-file /AppDir/usr/share/icons/hicolor/128x128/apps/QMapShack.png \
+	--appdir AppDir \
+	--plugin qt \
+	--custom-apprun=/apprun.sh \
 	--output appimage
 
 # Copy AppImage to host file system folder
