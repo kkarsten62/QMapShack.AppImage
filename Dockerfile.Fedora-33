@@ -1,31 +1,19 @@
-FROM ubuntu:18.04
+# Fedora 33
+
+FROM fedora:33
 
 LABEL description="QMapShack.AppImage development build"
 
-# Update packages and install UbuntuGIS repository
-RUN apt-get -y update \
-	&& apt-get -y install software-properties-common \
-	&& add-apt-repository -y ppa:ubuntugis/ppa \
-	&& apt-get -y update \
-	&& apt-get -y dist-upgrade
-	
+# Update packages
+RUN dnf -y upgrade
+
+# Install development environment
+RUN dnf -y groupinstall "Development Tools" "Development Libraries"
+
 # Install needed packages
-RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 \
-		qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
-		libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
-		libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
-		libpython3-dev
-
-# Install CMake latest version, needed for QUAZIP
-# See https://apt.kitware.com/
-RUN apt-get -y install apt-transport-https ca-certificates gnupg software-properties-common wget \
-	&& wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null \
-	&& apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ bionic main' \
-	&& apt-get update \
-	&& apt-get -y install cmake
-
-# Reinstall kernel to load fuse module
-RUN apt-get -y install --reinstall linux-image-5.4.0-70-generic
+RUN dnf -y install qt5-linguist qt5-qttools-static qt5-qtwebengine-devel \
+	libjpeg-turbo-devel alglib-devel gdal-devel wget \
+	libtiff-devel libsq3-devel qt-creator
 
 # Install PROJ 8.0.0
 # See https://proj.org/
@@ -45,7 +33,7 @@ RUN wget https://download.osgeo.org/proj/proj-8.0.0.tar.gz \
 RUN wget https://github.com/OSGeo/gdal/releases/download/v3.2.2/gdal-3.2.2.tar.gz \
 	&& tar xvzf gdal-3.2.2.tar.gz \
 	&& cd gdal-3.2.2 \
-	&& ./configure --prefix=/usr \
+	&& ./configure --prefix=/usr --libdir=/usr/lib64 \
 	&& make -j$(nproc) \
 	&& make install \
 	&& cd / \
@@ -69,6 +57,7 @@ RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
 RUN svn co http://routino.org/svn/trunk routino \
 	&& cd routino \
 	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
+	&& sed -i '51 s|libdir=$(prefix)/lib|libdir=$(prefix)/lib64|' Makefile.conf \
 	&& make -j$(nproc) \
 	&& make install	\
 	&& cd / \
@@ -92,10 +81,6 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
 	&& chmod +x linuxdeploy*.AppImage
 
-# Cleansing to reduce space
-RUN apt-get -y clean \
-	&& rm -rf /var/lib/apt/lists/*
-
 # Copy needed PROJ, GDAL, routino data to AppDir folder
 RUN mkdir -p /AppDir/usr/share /AppDir/share \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
@@ -108,6 +93,6 @@ COPY --chown=root:root build_AppImage.sh apprun.sh /
 # Docker run will open a bash as default
 CMD ["/bin/bash"]
 
-RUN echo "\n\n=====================================================" \
-	&& echo "QMapShack.AppImage Docker image successfully created!" \
-	&& echo "=====================================================\n\n"
+RUN echo -e "\n\n=====================================================" \
+	&& echo -e "QMapShack.AppImage Docker image successfully created!" \
+	&& echo -e "=====================================================\n\n"

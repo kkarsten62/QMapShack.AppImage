@@ -9,6 +9,28 @@ Feasibility study to build **ONE single QMapShack executable file** based on **Q
 * But you would like to review and test the latest development commits?
 
 Then, may be you could use a ready to go one-click QMapshack.AppImage executable file.
+
+## Available QMapShack.AppImage Dockerfiles
+Not all QMapshack.AppImage builds will support all actual Linux desktop distributions. So therefore different QMapShack.AppImage builds for different Linux distributions has to be created.
+
+The following table shows the different Available QMapShack.AppImage files with the different software components versions.
+
+|AppImage|Linux Distribution|CMake|Qt|PROJ|GDAL|Routino|
+|:-|:-:|:-:|:-:|-:|:-:|:-:|
+|QMapShack.AppImage-Ubuntu-18.04|Ubuntu 18.04|20.0.0|12.02|8.0.0|3.2.2|3.3.3|
+|QMapShack.AppImage-Ubuntu-18.04|Ubuntu 18.04|20.0.0|12.02|8.0.0|3.2.2|3.3.3|
+|QMapShack.AppImage-Ubuntu-18.04|Ubuntu 18.04|20.0.0|12.02|8.0.0|3.2.2|3.3.3|
+
+### Compatible matrix
+The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage files.
+
+|Desktop/AppImage|QMapShack.AppImage-Ubuntu-18.04|Fedora 33|openSUSE 15.2|
+|:-|:-:|:-:|:-:|
+|Ubuntu 18.04|Yes|No|No|
+|Ubuntu 20.04|Yes|No|No|
+|Fedora 33|Yes|Yes|Yes|
+|openSUSE 15.2|No|No|Yes|
+
 ## Requirements
 * Computer with 64-bit architecture
 * A Linux distribution - able to run Docker Software
@@ -23,7 +45,7 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 
 		cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 	
-* The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See <https://docs.docker.com/engine/install/linux-postinstall/> for more details.
+* The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See [here](https://docs.docker.com/engine/install/linux-postinstall/) for more details.
 ## Using a ready to go one-click QMapshack.AppImage
 If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from here.
 
@@ -33,9 +55,9 @@ No further installation is required then - *have fun with QMapshack.AppImage*.
 
 # Installation
 ## Install Docker
-Details about Docker and the installation steps for the wide range of Linux distribution can be found here:
-<https://docs.docker.com/engine/install/>
+Details about Docker and the installation steps for the wide range of Linux distribution can be found [here](https://docs.docker.com/engine/install/).
 
+An external installation guide for openSUSE installation can be found [here](https://www.osradar.com/install-docker-opensuse-15-2-15-1/)
 Verify that Docker Engine is installed correctly by running the `hello-world` image.
 
 	sudo docker run hello-world
@@ -112,10 +134,10 @@ Use `exit` to step out.
 	cd ~/GPS/qmapshack-AppImage/out
 	./QMapShack-x86_64.AppImage [options]
 	
-The `[options]` can be set according to QMapShack commandline options, see <https://github.com/Maproom/qmapshack/wiki/DocCmdOptions> for more details.
+The `[options]` can be set according to QMapShack commandline options, see [here](https://github.com/Maproom/qmapshack/wiki/DocCmdOptions/) for more details.
 
 # Mount or extract QMapShack.AppImage
-See <https://docs.appimage.org/user-guide/run-appimages.html#mount-an-appimage>
+See [here](https://docs.appimage.org/user-guide/run-appimages.html#mount-an-appimage/) for detailed information.
 ## Mount
 	cd ~/GPS/qmapshack-AppImage/out
 	./QMapShack-x86_64.AppImage --appimage-mount
@@ -137,7 +159,7 @@ A new folder called `squashfs-root` is created, containing the content of QMapSh
 Only some build test performed so far. **Deep functional tests with tracks, routes, waypoints, maps, DEMS, Routino, DB, etc. needs still to be done.**
 ## ROUTINO_XML_PATH
 Seen from AppImage the path `ROUTINO_XML_PATH` is a hard-coded path in QMapShack.
-Current bypass solution according to <https://docs.appimage.org/packaging-guide/manual.html> is by setting a temp link during QMapShack run time.
+Current bypass solution according to this [information](https://docs.appimage.org/packaging-guide/manual.html/) is by setting a temp link during QMapShack run time.
 ## Docker Ubuntu images are disk space consuming
 Room for Improvement could be to change from Ubuntu to a more lightweight distribution (Alpine Linux?) to reduce the needed disk space.
 ## Troubleshooting

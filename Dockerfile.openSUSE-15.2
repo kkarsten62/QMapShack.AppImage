@@ -1,0 +1,101 @@
+# OpenSUSE 15.2 Leap
+
+FROM opensuse/leap:15.2
+
+LABEL description="QMapShack.AppImage development build"
+
+# Update packages
+RUN zypper refresh \
+	&& zypper --non-interactive update
+
+# Install development environment
+RUN zypper install -y -t pattern devel_basis
+
+# Install needed packages
+RUN zypper install -y cmake libqt5-qtbase-devel libqt5-linguist-devel \
+	libqt5-qttools-devel libqt5-qtwebengine-devel proj-devel libjpeg8-devel \
+	libbz2-devel sqlite3-devel libcurl-devel libtiff-devel \
+	sqlite3 perl-GraphicsMagick wget subversion git fuse-devel \
+	ghostscript ghostscript-fonts-std ghostscript-fonts-std-converted
+
+# Install PROJ 8.0.0
+# See https://proj.org/
+RUN wget https://download.osgeo.org/proj/proj-8.0.0.tar.gz \
+	&& tar xzvf proj-8.0.0.tar.gz \
+	&& cd proj-8.0.0 \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+	&& cmake --build . -j$(nproc) \
+	&& cmake --build . --target install \
+	&& cd / \
+	&& rm -rf proj-8.0.0.tar.gz proj-8.0.0
+
+# Install GDAL 3.2.2
+# See https://gdal.org/
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.2.2/gdal-3.2.2.tar.gz \
+	&& tar xvzf gdal-3.2.2.tar.gz \
+	&& cd gdal-3.2.2 \
+	&& ./configure --prefix=/usr --libdir=/usr/lib64 \
+	&& make -j$(nproc) \
+	&& make install \
+	&& cd / \
+	&& rm -rf gdal-3.2.2.tar.gz gdal-3.2.2
+
+# Install QUAZIP 1.1
+# See https://stachenov.github.io/quazip/
+RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
+	&& tar xvzf v1.1.tar.gz \
+	&& cd quazip-1.1 \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+	&& cmake --build . -j$(nproc) \
+	&& cmake --build . --target install \
+	&& cd / \
+	&& rm -rf xvzf v1.1.tar.gz quazip-1.1
+
+# Install Routino 3.3.3
+# See http://www.routino.org/
+RUN svn co http://routino.org/svn/trunk routino \
+	&& cd routino \
+	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
+	&& sed -i '51 s|libdir=$(prefix)/lib|libdir=$(prefix)/lib64|' Makefile.conf \
+	&& make -j$(nproc) \
+	&& make install	\
+	&& cd / \
+	&& rm -rf routino
+
+# Install QMapShack, latest development commit
+# Make only - No make install
+# See https://github.com/Maproom/qmapshack
+RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
+	&& mkdir build_QMapShack \
+	&& cd build_QMapShack \
+	&& cmake ../QMapShack \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_QMAPTOOL=OFF \
+	&& make qmapshack -j$(nproc) \
+	&& cd /
+
+# Install AppImage
+# See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
+RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
+	&& chmod +x linuxdeploy*.AppImage
+
+# Copy needed PROJ, GDAL, routino data to AppDir folder
+RUN mkdir -p /AppDir/usr/share /AppDir/share \
+	&& cp -r /usr/share/gdal /AppDir/usr/share \
+	&& cp -r /usr/share/proj /AppDir/usr/share \
+	&& cp -r /usr/share/routino /AppDir/share
+
+# Copy the needed scripts from host to root used by docker run
+COPY --chown=root:root build_AppImage.sh apprun.sh /
+
+# Docker run will open a bash as default
+CMD ["/bin/bash"]
+
+RUN echo -e "\n\n=====================================================" \
+	&& echo -e "QMapShack.AppImage Docker image successfully created!" \
+	&& echo -e "=====================================================\n\n"
