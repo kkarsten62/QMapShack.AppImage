@@ -15,6 +15,8 @@ sed -i -e 's|/usr/share/routino|rout/share/routino|g' /AppDir/usr/bin/qmapshack
 
 # Build AppImage
 ./linuxdeploy-x86_64.AppImage \
+	--library /usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so \
+	--library /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so \
 	--desktop-file /AppDir/usr/share/applications/qmapshack.desktop \
 	--icon-file /AppDir/usr/share/icons/hicolor/128x128/apps/QMapShack.png \
 	--appdir AppDir \

@@ -96,6 +96,6 @@ COPY --chown=root:root build_AppImage.sh apprun.sh /
 # Docker run will open a bash as default
 CMD ["/bin/bash"]
 
-RUN echo -e "\n\n=====================================================" \
-	&& echo -e "QMapShack.AppImage Docker image successfully created!" \
-	&& echo -e "=====================================================\n\n"
+RUN echo "\n\n=====================================================" \
+	&& echo "QMapShack.AppImage Docker image successfully created!" \
+	&& echo "=====================================================\n\n"
