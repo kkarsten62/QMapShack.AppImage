@@ -16,7 +16,7 @@ RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 \
 		qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
 		libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
 		libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
-		libpython3-dev
+		libpython3-dev libnss3
 
 # Install CMake latest version, needed for QUAZIP
 # See https://apt.kitware.com/
