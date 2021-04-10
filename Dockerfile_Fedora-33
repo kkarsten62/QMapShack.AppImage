@@ -12,7 +12,7 @@ RUN dnf -y groupinstall "Development Tools" "Development Libraries"
 
 # Install needed packages
 RUN dnf -y install qt5-linguist qt5-qttools-static qt5-qtwebengine-devel \
-	libjpeg-turbo-devel alglib-devel gdal-devel wget \
+	libjpeg-turbo-devel alglib-devel gdal-devel nss-softokn-devel \
 	libtiff-devel libsq3-devel qt-creator
 
 # Install PROJ 8.0.0
@@ -93,6 +93,6 @@ COPY --chown=root:root build_AppImage.sh apprun.sh /
 # Docker run will open a bash as default
 CMD ["/bin/bash"]
 
-RUN echo "\n\n=====================================================" \
-	&& echo "QMapShack.AppImage Docker image successfully created!" \
-	&& echo "=====================================================\n\n"
+RUN echo -e "\n\n=====================================================" \
+	&& echo -e "QMapShack.AppImage Docker image successfully created!" \
+	&& echo -e "=====================================================\n\n"
