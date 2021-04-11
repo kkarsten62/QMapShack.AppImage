@@ -18,7 +18,7 @@ The following table shows the different available QMapShack.AppImage Docker buil
 |Dockerfile_|CMake|Qt|PROJ|GDAL|Routino|GLIBC|
 |:-|:-:|:-:|:-:|-:|:-:|:-:|
 |Ubuntu-18.04|3.20.0|5.9.5|8.0.0|3.2.2|3.3.3|2.27|
-|Fedora-33|19.7.0|5.15.2|8.0.0|3.2.2|3.3.3|x.xx|
+|Fedora-33|3.19.7|5.15.2|8.0.0|3.2.2|3.3.3|x.xx|
 |openSUSE-15.2|3.19.7|5.12.7|8.0.0|3.2.2|3.3.3|2.26|
 
 ### Compatible matrix
