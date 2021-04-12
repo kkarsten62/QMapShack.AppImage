@@ -11,7 +11,7 @@ RUN dnf -y upgrade
 RUN dnf -y groupinstall "Development Tools" "Development Libraries"
 
 # Install needed packages
-RUN dnf -y install qt5-linguist qt5-qttools-static qt5-qtwebengine-devel \
+RUN dnf -y install wget qt5-linguist qt5-qttools-static qt5-qtwebengine-devel \
 	libjpeg-turbo-devel alglib-devel gdal-devel nss-softokn-devel \
 	libtiff-devel libsq3-devel qt-creator
 

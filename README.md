@@ -18,8 +18,8 @@ The following table shows the different available QMapShack.AppImage Docker buil
 |Dockerfile_|CMake|Qt|PROJ|GDAL|Routino|GLIBC|
 |:-|:-:|:-:|:-:|-:|:-:|:-:|
 |Ubuntu-18.04|3.20.0|5.9.5|8.0.0|3.2.2|3.3.3|2.27|
-|Fedora-33|3.19.7|5.15.2|8.0.0|3.2.2|3.3.3|x.xx|
-|openSUSE-15.2|3.19.7|5.12.7|8.0.0|3.2.2|3.3.3|2.26|
+|Fedora-33|3.19.7|5.15.2|8.0.0|3.2.2|3.3.3|2.32|
+|openSUSE-15.2|3.17.0|5.12.7|8.0.0|3.2.2|3.3.3|2.26|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
@@ -140,11 +140,6 @@ Now, use another terminal or file manager to inspect the content of QMapShack.Ap
 A new folder called `squashfs-root` is created, containing the content of QMapShack.AppImage.
 
 # Known issues and topics
-## Build tested on:
-* Ubuntu 18.04
-* Ubuntu 20.04
-* Fedora 33
-
 Only some build test performed so far. **Deep functional tests with tracks, routes, waypoints, maps, DEMS, Routino, DB, etc. needs still to be done.**
 ## ROUTINO_XML_PATH
 Seen from AppImage the path `ROUTINO_XML_PATH` is a hard-coded path in QMapShack.
