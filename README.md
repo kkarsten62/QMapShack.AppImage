@@ -77,7 +77,7 @@ Build the image:
 
 For example:
 
-	sudo docker build -t qms-appimage:0.0.0 --file QMapShack.AppImage_Ubuntu-18.04 .
+	sudo docker build -t qms-appimage:0.0.0 --file Dockerfile_Ubuntu-18.04 .
 
 *Note:* Be patient and take a coffee, build process will take some time - about 1-2 hours.
 
