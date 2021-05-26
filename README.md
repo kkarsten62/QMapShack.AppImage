@@ -1,5 +1,3 @@
- ## Work In Progress!
----
 # QMapShack.AppImage
 Feasibility study to build **ONE single QMapShack executable file** based on **QMapShack** latest development commits by using **Docker** and **AppImage**.
 
@@ -29,6 +27,7 @@ The following table will shows the different tested Linux desktop distributions 
 |Ubuntu 18.04|Yes|No|No|
 |Ubuntu 20.04|Yes|No|No|
 |Fedora 33|Yes|Yes|No|
+|Fedora 34|Yes|Yes|No|
 |openSUSE 15.2|No|No|Yes|
 
 ## Requirements
