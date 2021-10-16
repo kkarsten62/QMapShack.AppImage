@@ -18,18 +18,17 @@ RUN zypper install -y cmake libqt5-qtbase-devel libqt5-linguist-devel \
 	sqlite3 perl-GraphicsMagick wget subversion git fuse-devel \
 	ghostscript ghostscript-fonts-std ghostscript-fonts-std-converted
 
-# Install PROJ 8.0.0
+# Install PROJ 8.1.1-dev
 # See https://proj.org/
-RUN wget https://download.osgeo.org/proj/proj-8.0.0.tar.gz \
-	&& tar xzvf proj-8.0.0.tar.gz \
-	&& cd proj-8.0.0 \
+RUN git clone https://github.com/OSGeo/PROJ.git proj-8.1.1-dev \
+	&& cd proj-8.1.1-dev \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) \
 	&& cmake --build . --target install \
 	&& cd / \
-	&& rm -rf proj-8.0.0.tar.gz proj-8.0.0
+	&& rm -rf proj-8.1.1-dev
 
 # Install GDAL 3.2.2
 # See https://gdal.org/
@@ -96,6 +95,6 @@ COPY --chown=root:root build_AppImage.sh apprun.sh /
 # Docker run will open a bash as default
 CMD ["/bin/bash"]
 
-RUN echo -e "\n\n=====================================================" \
-	&& echo -e "QMapShack.AppImage Docker image successfully created!" \
-	&& echo -e "=====================================================\n\n"
+RUN echo "\n\n=====================================================" \
+	&& echo "QMapShack.AppImage Docker image successfully created!" \
+	&& echo "=====================================================\n\n"

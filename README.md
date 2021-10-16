@@ -13,11 +13,11 @@ Not all QMapshack.AppImage builds will support all actual Linux desktop distribu
 
 The following table shows the different available QMapShack.AppImage Docker build files with the different used software components versions.
 
-|Dockerfile_|CMake|Qt|PROJ|GDAL|Routino|GLIBC|
+|Dockerfile_|CMake|Qt|PROJ dev|GDAL|Routino|GLIBC|
 |:-|:-:|:-:|:-:|-:|:-:|:-:|
-|Ubuntu-18.04|3.20.0|5.9.5|8.0.0|3.2.2|3.3.3|2.27|
-|Fedora-33|3.19.7|5.15.2|8.0.0|3.2.2|3.3.3|2.32|
-|openSUSE-15.2|3.17.0|5.12.7|8.0.0|3.2.2|3.3.3|2.26|
+|Ubuntu-18.04|3.20.0|5.9.5|>8.1.1|3.2.2|3.3.3|2.27|
+|Fedora-33|3.19.7|5.15.2|>8.1.1|3.2.2|3.3.3|2.32|
+|openSUSE-15.2|3.17.0|5.12.7|>8.1.1|3.2.2|3.3.3|2.26|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.

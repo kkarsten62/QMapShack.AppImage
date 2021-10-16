@@ -16,7 +16,7 @@ RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 \
 		qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
 		libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
 		libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
-		libpython3-dev libnss3
+		libpython3-dev
 
 # Install CMake latest version, needed for QUAZIP
 # See https://apt.kitware.com/
@@ -29,18 +29,17 @@ RUN apt-get -y install apt-transport-https ca-certificates gnupg software-proper
 # Reinstall kernel to load fuse module
 RUN apt-get -y install --reinstall linux-image-5.4.0-70-generic
 
-# Install PROJ 8.0.0
+# Install PROJ 8.1.1-dev
 # See https://proj.org/
-RUN wget https://download.osgeo.org/proj/proj-8.0.0.tar.gz \
-	&& tar xzvf proj-8.0.0.tar.gz \
-	&& cd proj-8.0.0 \
+RUN git clone https://github.com/OSGeo/PROJ.git proj-8.1.1-dev \
+	&& cd proj-8.1.1-dev \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) \
 	&& cmake --build . --target install \
 	&& cd / \
-	&& rm -rf proj-8.0.0.tar.gz proj-8.0.0
+	&& rm -rf proj-8.1.1-dev
 
 # Install GDAL 3.2.2
 # See https://gdal.org/
