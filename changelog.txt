@@ -1,0 +1,15 @@
+QMapShack.AppImage
+==================
+https://github.com/kkarsten62/QMapShack.AppImage
+https://github.com/kkarsten62/QMapShack.AppImage/wiki
+
+
+Version 1.16.0.development.1, 2021-11-20
+
+Bugs fixed and enhancements:
+[1] Can't create Routino DB
+[2] Dockerfile_Fedora-33 and Dockerfile_openSUSE-15.2: Missing MYSQL support
+[3] Can't create VRT Files for DEM
+[4] Add support for Fedora 35
+[5] Add support for latest official release of Proj 8.2.0
+[6] Add support for openSUSE Leap 15.3

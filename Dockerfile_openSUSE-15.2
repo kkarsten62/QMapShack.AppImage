@@ -14,21 +14,22 @@ RUN zypper install -y -t pattern devel_basis
 # Install needed packages
 RUN zypper install -y cmake libqt5-qtbase-devel libqt5-linguist-devel \
 	libqt5-qttools-devel libqt5-qtwebengine-devel proj-devel libjpeg8-devel \
-	libbz2-devel sqlite3-devel libcurl-devel libtiff-devel \
+	libQt5Sql5-mysql libbz2-devel sqlite3-devel libcurl-devel libtiff-devel \
 	sqlite3 perl-GraphicsMagick wget subversion git fuse-devel \
 	ghostscript ghostscript-fonts-std ghostscript-fonts-std-converted
 
-# Install PROJ 8.1.1-dev
+# Install PROJ 8.2.0
 # See https://proj.org/
-RUN git clone https://github.com/OSGeo/PROJ.git proj-8.1.1-dev \
-	&& cd proj-8.1.1-dev \
+RUN wget https://download.osgeo.org/proj/proj-8.2.0.tar.gz \
+	&& tar xzvf proj-8.2.0.tar.gz \
+	&& cd proj-8.2.0 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) \
 	&& cmake --build . --target install \
 	&& cd / \
-	&& rm -rf proj-8.1.1-dev
+	&& rm -rf proj-8.2.0.tar.gz proj-8.2.0
 
 # Install GDAL 3.2.2
 # See https://gdal.org/
@@ -84,10 +85,12 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 	&& chmod +x linuxdeploy*.AppImage
 
 # Copy needed PROJ, GDAL, routino data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/share \
+RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
-	&& cp -r /usr/share/routino /AppDir/share
+	&& cp -r /usr/share/routino /AppDir/share \
+	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
+	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin
 
 # Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /

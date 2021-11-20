@@ -1,5 +1,5 @@
 # QMapShack.AppImage
-Feasibility study to build **ONE single QMapShack executable file** based on **QMapShack** latest development commits by using **Docker** and **AppImage**.
+Build **ONE single QMapShack executable file** based on **QMapShack** latest development commits by using **Docker** and **AppImage**.
 
 * You are using a Linux distribution like Ubuntu, Fedora, Mint, ... ?
 * And you are not coding by your self?
@@ -7,17 +7,16 @@ Feasibility study to build **ONE single QMapShack executable file** based on **Q
 * But you would like to review and test the latest development commits?
 
 Then, may be you could use a ready to go one-click QMapshack.AppImage executable file.
-
 ## Available QMapShack.AppImage Dockerfiles
 Not all QMapshack.AppImage builds will support all actual Linux desktop distributions. So therefore different QMapShack.AppImage Docker build files are available to support different Linux distributions. Reasons and details behind can be found [here](https://docs.appimage.org/introduction/concepts.html).
 
 The following table shows the different available QMapShack.AppImage Docker build files with the different used software components versions.
 
-|Dockerfile_|CMake|Qt|PROJ dev|GDAL|Routino|GLIBC|
-|:-|:-:|:-:|:-:|-:|:-:|:-:|
-|Ubuntu-18.04|3.20.0|5.9.5|>8.1.1|3.2.2|3.3.3|2.27|
-|Fedora-33|3.19.7|5.15.2|>8.1.1|3.2.2|3.3.3|2.32|
-|openSUSE-15.2|3.17.0|5.12.7|>8.1.1|3.2.2|3.3.3|2.26|
+|Dockerfile_|CMake|Qt|PROJ|GDAL|Routino|GLIBC|Desktop|
+|:-|:-:|:-:|:-:|-:|:-:|:-:|:-:|
+|Ubuntu-18.04|3.20.0|5.9.5|8.2.0|3.2.2|3.3.3|2.27|GNOME/X|
+|Fedora-33|3.19.7|5.15.2|8.2.0|3.2.2|3.3.3|2.32|GNOME/X|
+|openSUSE-15.2|3.17.0|5.12.7|8.2.0|3.2.2|3.3.3|2.26|KDE|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
@@ -26,9 +25,11 @@ The following table will shows the different tested Linux desktop distributions 
 |:-|:-:|:-:|:-:|
 |Ubuntu 18.04|Yes|No|No|
 |Ubuntu 20.04|Yes|No|No|
-|Fedora 33|Yes|Yes|No|
-|Fedora 34|Yes|Yes|No|
-|openSUSE 15.2|No|No|Yes|
+|Fedora 33|No|Yes|No|
+|Fedora 34|No|Yes|No|
+|Fedora 35|No|Yes|No|
+|openSUSE Leap 15.2|No|No|Yes|
+|openSUSE Leap 15.3|No|No|Yes|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)
@@ -138,15 +139,12 @@ Now, use another terminal or file manager to inspect the content of QMapShack.Ap
 
 A new folder called `squashfs-root` is created, containing the content of QMapShack.AppImage.
 
-# Known issues and topics
-Only some build test performed so far. **Deep functional tests with tracks, routes, waypoints, maps, DEMS, Routino, DB, etc. needs still to be done.**
+# Known issues
 ## ROUTINO_XML_PATH
 Seen from AppImage the path `ROUTINO_XML_PATH` is a hard-coded path in QMapShack.
-Current bypass solution according to this [information](https://docs.appimage.org/packaging-guide/manual.html/) is by setting a temp link during QMapShack run time.
-## Docker Ubuntu images are disk space consuming
-Room for Improvement could be to change from Ubuntu to a more lightweight distribution (Alpine Linux?) to reduce the needed disk space.
-## Troubleshooting
-### Mixing up different versions of QMapShack
+Current bypass solution according to this [information](https://docs.appimage.org/packaging-guide/manual.html/) is by setting a temp link named `rout` during QMapShack run time. The link will be removed when finishing QMapShack.
+# Troubleshooting
+## Mixing up different versions of QMapShack
 In a case of a strange behaviour in handling of QMapShack, it may help to delete the configuration. **Be aware:** All your personal settings for the GUI will be lost. Finish QMapShack first. Before doing so, however, back up the existing configuration. QMapShack will then start with the default configuration. 
 
 	cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
@@ -155,7 +153,6 @@ In a case of a strange behaviour in handling of QMapShack, it may help to delete
 A good practices could be also to start QMapShack.AppImage with a dedicated configration file using `-c` option to avoid conflicts with an existing QMapShack installation, like:
 
 	./QMapShack.AppImage -c myConfigFile.conf
-
 ---
 # Credits
 Many thanks to `harenber` for the base idea and approach.
