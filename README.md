@@ -77,9 +77,11 @@ Build the image:
 
 For example:
 
-	sudo docker build -t qms-appimage:0.0.0 --file Dockerfile_Ubuntu-18.04 .
+	sudo docker build -t qms-appimage:0.0.0 --file --no-cache Dockerfile_Ubuntu-18.04 .
 
-*Note:* Be patient and take a coffee, build process will take some time - about 1-2 hours.
+*Note:*
+* Be patient and take a coffee, build process will take some time - about 1-2 hours.
+* To save time, the `--no-cache` option can be omitted during testing.
 
 Check for latest information in terminal:
 
@@ -101,6 +103,9 @@ Start building new QMapShack version with:
 
 	cd ~/GPS/qmapshack-AppImage
 	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0 /build_AppImage.sh
+	
+*Note:* 
+* For Ubuntu use specific build script `/build_AppImage_Ubuntu-18.04.sh` 
 	
 Check for latest information in terminal:
 
