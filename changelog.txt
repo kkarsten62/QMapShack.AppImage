@@ -3,6 +3,14 @@ QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
+Version 1.16.1, 2021-12-18
+
+Bugs fixed and enhancements:
+[7] Add needed libs for Ubuntu in build_AppImage.sh script
+[8] Add "--no-cache" option in docker build command
+[9] Add support for Linux Manjaro
+[10] Build all AppImages for QMapShack Version 1.16.1
+
 
 Version 1.16.0.development.1, 2021-11-20
 

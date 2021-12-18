@@ -12,7 +12,7 @@ RUN apt-get -y update \
 	&& apt-get -y dist-upgrade
 	
 # Install needed packages
-RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 \
+RUN apt-get -y install build-essential subversion git kmod fuse sqlite3 libnss3 \
 		qt5-default qttools5-dev libqt5webkit5-dev qtscript5-dev qttools5-dev-tools \
 		libqt5sql5-mysql qtwebengine5-dev qtdeclarative5-dev-tools \
 		libghc-bzlib-dev libgraphics-magick-perl default-libmysqlclient-dev libgdal-dev \
@@ -99,6 +99,7 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 #	&& rm -rf /var/lib/apt/lists/*
 
 # Copy needed PROJ, GDAL, routino data to AppDir folder
+#	&& cp /usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so /AppDir/usr/lib
 RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \

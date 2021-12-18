@@ -1,7 +1,7 @@
 # QMapShack.AppImage
 Build **ONE single QMapShack executable file** based on **QMapShack** latest development commits by using **Docker** and **AppImage**.
 
-* You are using a Linux distribution like Ubuntu, Fedora, Mint, ... ?
+* You are using a Linux distribution like Ubuntu, Fedora, openSUSE, Manjaro, ... ?
 * And you are not coding by your self?
 * So you would like not to set up a complex build environment on your computer?
 * But you would like to review and test the latest development commits?
@@ -17,19 +17,21 @@ The following table shows the different available QMapShack.AppImage Docker buil
 |Ubuntu-18.04|3.20.0|5.9.5|8.2.0|3.2.2|3.3.3|2.27|GNOME/X|
 |Fedora-33|3.19.7|5.15.2|8.2.0|3.2.2|3.3.3|2.32|GNOME/X|
 |openSUSE-15.2|3.17.0|5.12.7|8.2.0|3.2.2|3.3.3|2.26|KDE|
+|Manjaro-21.2rc1|3.22.1|5.15.2|8.2.0|3.2.2|3.3.3|2.33|GNOME/X|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
 
-|Linux Distribution/Dockerfile_|Ubuntu-18.04|Fedora-33|openSUSE-15.2|
-|:-|:-:|:-:|:-:|
-|Ubuntu 18.04|Yes|No|No|
-|Ubuntu 20.04|Yes|No|No|
-|Fedora 33|No|Yes|No|
-|Fedora 34|No|Yes|No|
-|Fedora 35|No|Yes|No|
-|openSUSE Leap 15.2|No|No|Yes|
-|openSUSE Leap 15.3|No|No|Yes|
+|Linux Distribution/Dockerfile_|Ubuntu-18.04|Fedora-33|openSUSE-15.2|Manjaro-21.2rc1|
+|:-|:-:|:-:|:-:|:-:|
+|Ubuntu 18.04|Yes|No|No|No|
+|Ubuntu 20.04|Yes|No|No|No|
+|Fedora 33|No|Yes|No|No|
+|Fedora 34|No|Yes|No|No|
+|Fedora 35|No|Yes|No|Yes|
+|openSUSE Leap 15.2|No|No|Yes|No|
+|openSUSE Leap 15.3|No|No|Yes|No|
+|Manjaro 21.2rc1|No|Yes|Yes|Yes|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)
@@ -53,7 +55,7 @@ Choose one of the existing executable downloads which fits best to your Linux di
 *Have fun with QMapshack.AppImage.*
 # Installation
 ## Install Docker
-Details about Docker and the installation steps for the wide range of Linux distribution can be found [here](https://docs.docker.com/engine/install/). An external installation guide for openSUSE installation can be found [here](https://www.osradar.com/install-docker-opensuse-15-2-15-1/).
+Details about Docker and the installation steps for the wide range of Linux distribution can be found [here](https://docs.docker.com/engine/install/). An external installation guide for openSUSE installation can be found [here](https://www.osradar.com/install-docker-opensuse-15-2-15-1/), and for Manjaro [here](https://linuxconfig.org/manjaro-linux-docker-installation).
 
 Verify that Docker Engine is installed correctly by running the `hello-world` image.
 
@@ -73,15 +75,15 @@ Download repository from GitHub:
 ## Build Docker image
 Build the image:
 
-	sudo docker build -t qms-appimage:0.0.0 --file <dockerfile> .
+	sudo docker build -t qms-appimage:0.0.0 --no-cache --file <dockerfile> .
 
 For example:
 
-	sudo docker build -t qms-appimage:0.0.0 --file --no-cache Dockerfile_Ubuntu-18.04 .
+	sudo docker build -t qms-appimage:0.0.0 --no-cache --file Dockerfile_Ubuntu-18.04 .
 
 *Note:*
 * Be patient and take a coffee, build process will take some time - about 1-2 hours.
-* To save time, the `--no-cache` option can be omitted during testing.
+* To save time, the `--no-cache` option can be omitted during testing, but should be set on final build run.
 
 Check for latest information in terminal:
 
@@ -94,7 +96,7 @@ With `docker run` a Docker container will be created based on the Docker image.
 
 Steps on Docker Run:
 
-* Download (pull) new commits from QMapShack development branch
+* Download (pull) latest development commits from QMapShack development branch
 * Build new QMapShack version
 * Run AppImage build process to build one executable file
 * Copy final QMapShack.AppImage  executable file to `out` folder
@@ -103,10 +105,6 @@ Start building new QMapShack version with:
 
 	cd ~/GPS/qmapshack-AppImage
 	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0 /build_AppImage.sh
-	
-*Note:* 
-* For Ubuntu use specific build script `/build_AppImage_Ubuntu-18.04.sh` 
-	
 Check for latest information in terminal:
 
 	===================================================
@@ -114,10 +112,11 @@ Check for latest information in terminal:
 	Check 'out' folder for new QMapShack.AppImage file
 	===================================================
 
-*Note: Run again when new commits are in the QMapShack development branch.
-**And** think about to backup an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun.*
+*Note:*
+* Run again when new development commits are in the QMapShack development branch, check [here](https://github.com/Maproom/qmapshack/commits/dev).
+* And think about to **backup** an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun.
 
-Additionally you can enter into the container by using a bash shell to inspect the content of the QMapShack.AppImage prior to the building process:
+Additionally you can enter into the Docker container by using a bash shell to inspect the content:
 
 	cd ~/GPS/qmapshack-AppImage
 	sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0
