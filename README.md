@@ -42,7 +42,7 @@ The following table will shows the different tested Linux desktop distributions 
 * Some Linux skills to handle a terminal
 ## Be aware
 * You are using software from a development branch. QMapShack is most of time quite stable during development process - but there is no guarantee!
-* This setup is valid as long as there are no changes in the prerequisites to build QMakeShack (ex. CMakefile.txt, PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according to the changes of the new prerequisites.
+* This setup is valid as long as there are no changes in the prerequisites to build QMapShack (ex. CMakefile.txt, PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according to the changes of the new prerequisites.
 * When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also, for example in a Ubuntu and Fedora environment:
 
 		cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
@@ -144,9 +144,9 @@ Now, use another terminal or file manager to inspect the content of QMapShack.Ap
 A new folder called `squashfs-root` is created, containing the content of QMapShack.AppImage.
 
 # Known issues
-## ROUTINO_XML_PATH
-Seen from AppImage the path `ROUTINO_XML_PATH` is a hard-coded path in QMapShack.
-Current bypass solution according to this [information](https://docs.appimage.org/packaging-guide/manual.html/) is by setting a temp link named `rout` during QMapShack run time. The link will be removed when finishing QMapShack.
+## Hard coded pathes in QMapShack
+Seen from AppImage the pathes `/usr/share/routino (ROUTINO_XML_PATH)` and `/usr/share/doc/HTML` are a hard-coded pathes in QMapShack binary file.
+Current bypass solution according to this [information](https://docs.appimage.org/packaging-guide/manual.html/) is by setting a temp link named `rout` during QMapShack run time. The link will be removed when QMapShack is finished.
 # Troubleshooting
 ## Mixing up different versions of QMapShack
 In a case of a strange behaviour in handling of QMapShack, it may help to delete the configuration. **Be aware:** All your personal settings for the GUI will be lost. Finish QMapShack first. Before doing so, however, back up the existing configuration. QMapShack will then start with the default configuration. 

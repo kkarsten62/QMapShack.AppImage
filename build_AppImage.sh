@@ -11,10 +11,10 @@ cd /
 # Identify OS (ubuntu, fedora, manajaro, ...)
 OS=$(cat /etc/os-release | sed -n '/^ID=/s/ID=//p')
 
-# Bypass hard-coded ROUTINO_XML_PATH
-# used to link into the mounted squashfs
+# Bypass hard-coded QMapshack pathes, used to link into the mounted squashfs
+# /usr/share/routino, /usr/share/doc/HTML
 # According to https://docs.appimage.org/packaging-guide/manual.html
-sed -i -e 's|/usr/share/routino|rout/share/routino|g' /AppDir/usr/bin/qmapshack
+sed -i -e 's|/usr/share/|rout/share/|g' /AppDir/usr/bin/qmapshack
 
 # Deploy AppImage
 DEPLOY_CMD="./linuxdeploy-x86_64.AppImage \

@@ -80,13 +80,14 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 # RUN apt-get -y clean \
 #	&& rm -rf /var/lib/apt/lists/*
 
-# Copy needed PROJ, GDAL, routino data to AppDir folder
+# Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
 RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/share \
 	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
-	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin
+	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
+   	&& cp -r /usr/share/qt5/translations /AppDir/usr
 
 # Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /
