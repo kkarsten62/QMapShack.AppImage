@@ -3,6 +3,14 @@ QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
+Version x.xx.x, 202x-xx-xx
+
+Bugs fixed and enhancements:
+[0] Warning message on start; no file found for Qt translations
+[11] Bypass hard-coded path "/usr/share/doc/HTML" in QMapShack binary
+[12] Content of help dialog (F1) is empty
+
+
 Version 1.16.1, 2021-12-18
 
 Bugs fixed and enhancements:

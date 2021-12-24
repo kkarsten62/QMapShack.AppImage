@@ -91,7 +91,8 @@ RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
 	&& cp -r /usr/share/routino /AppDir/share \
 	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
 	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
-   	&& cp -r /usr/share/qt5/translations /AppDir/usr
+   	&& cp -r /usr/share/qt5/translations /AppDir/usr \
+   	&& cp /QMapShack/src/qmapshack/doc/QMSHelp.* /AppDir/share/doc/HTML
 
 # Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /
