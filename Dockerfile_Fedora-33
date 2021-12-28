@@ -82,14 +82,13 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 	&& chmod +x linuxdeploy*.AppImage
 
 # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin /AppDir/share/doc/HTML \
+RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
-	&& cp -r /usr/share/routino /AppDir/share \
+	&& cp -r /usr/share/routino /AppDir/usr/share \
 	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
 	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
-   	&& cp -r /usr/share/qt5/translations /AppDir/usr \
-	&& cp /QMapShack/src/qmapshack/doc/QMSHelp.* /AppDir/share/doc/HTML
+   	&& cp -r /usr/share/qt5/translations /AppDir/usr
 	
 # DockerHub Image of fedora:33 will provide english "en" Qt5 translations files only
 # Bypass is to copy all Fedora Qt5 translations files from hosts

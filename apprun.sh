@@ -3,25 +3,24 @@
 # set -x
 set -e
 
-echo -e "\n\n--- QMapShack.AppImage starting\n"
+echo -e "\n--- QMapShack.AppImage starting\n"
 
 # Extend PATH to find planetsplitter and gdalbuildvrt
 export PATH=${PATH}:${APPDIR}/usr/bin
 
-# Temp link to use to bypass hard-coded ROUTINO_XML_PATH
-link=${OWD}/rout
+# Clean up on exit in any case
 trap cleanup EXIT
 
-# Remove link when script finished
+# Remove tmp files on exit
 cleanup() {
-	[ -L ${link} ] && rm ${link}
+	[ -d /tmp/qmsappimg ] && rm -rf /tmp/qmsappimg
 }
 
-# If a link already exist, delete it first
-[ -L ${link} ] && rm ${link}
-
-# Set bypass link
-ln -s $APPDIR ${link}
+# Copy data to /tmp to bypass hard coded pathes
+[ -d /tmp/qmsappimg ] && rm -rf /tmp/qmsappimg
+mkdir -p /tmp/qmsappimg
+cp -r ${APPDIR}/usr/share/doc/HTML /tmp/qmsappimg/HTML
+cp -r ${APPDIR}/usr/share/routino /tmp/qmsappimg/rto
 
 # Start QMapShack with options
 ${APPDIR}/usr/bin/qmapshack "$@"

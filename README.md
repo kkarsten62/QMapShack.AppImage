@@ -145,8 +145,8 @@ A new folder called `squashfs-root` is created, containing the content of QMapSh
 
 # Known issues
 ## Hard coded pathes in QMapShack
-Seen from AppImage the pathes `/usr/share/routino (ROUTINO_XML_PATH)` and `/usr/share/doc/HTML` are a hard-coded pathes in QMapShack binary file.
-Current bypass solution according to this [information](https://docs.appimage.org/packaging-guide/manual.html/) is by setting a temp link named `rout` during QMapShack run time. The link will be removed when QMapShack is finished.
+Seen from AppImage the pathes `/usr/share/routino (ROUTINO_XML_PATH)` and `/usr/share/doc/HTML` are hard-coded pathes in QMapShack binary file.
+See [here](https://docs.appimage.org/packaging-guide/manual.html#no-hard-coded-paths) for more information. Current bypass is to copy at start of QMapShack.Appimage the routino profiles and help files to a /tmp folder.  The /tmp folder will be removed when QMapShack finished.
 # Troubleshooting
 ## Mixing up different versions of QMapShack
 In a case of a strange behaviour in handling of QMapShack, it may help to delete the configuration. **Be aware:** All your personal settings for the GUI will be lost. Finish QMapShack first. Before doing so, however, back up the existing configuration. QMapShack will then start with the default configuration. 

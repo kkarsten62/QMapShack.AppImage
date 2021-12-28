@@ -9,7 +9,7 @@ Bugs fixed and enhancements:
 [0] Warning message on start; no file found for Qt translations
 [11] Bypass hard-coded path "/usr/share/doc/HTML" in QMapShack binary
 [12] Content of help dialog (F1) is empty
-
+[13] Avoid creating a temp link at runtime to bypass hard coded pathes
 
 Version 1.16.1, 2021-12-18
 
