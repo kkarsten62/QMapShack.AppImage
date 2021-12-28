@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+set -e
+
 # Make and install QMapShack
 cd /QMapShack
 git pull

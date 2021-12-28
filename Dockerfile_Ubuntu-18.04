@@ -99,7 +99,7 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 #	&& rm -rf /var/lib/apt/lists/*
 
 # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
+RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin /AppDir/share/doc/HTML \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/share \

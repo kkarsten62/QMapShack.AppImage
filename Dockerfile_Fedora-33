@@ -13,7 +13,7 @@ RUN dnf -y groupinstall "Development Tools" "Development Libraries"
 # Install needed packages
 RUN dnf -y install wget libasan qt5-linguist qt5-qttools-static qt5-qtwebengine-devel \
 	qt5-qtbase-mysql libjpeg-turbo-devel alglib-devel gdal-devel nss-softokn-devel \
-	libtiff-devel libsq3-devel qt-creator
+	libtiff-devel libsq3-devel qt-creator qt5-qttranslations
 
 # Install PROJ 8.2.0
 # See https://proj.org/
@@ -82,14 +82,20 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 	&& chmod +x linuxdeploy*.AppImage
 
 # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
+RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin /AppDir/share/doc/HTML \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/share \
 	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
 	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
    	&& cp -r /usr/share/qt5/translations /AppDir/usr \
-    && cp /QMapShack/src/qmapshack/doc/QMSHelp.* /AppDir/share/doc/HTML
+	&& cp /QMapShack/src/qmapshack/doc/QMSHelp.* /AppDir/share/doc/HTML
+	
+# DockerHub Image of fedora:33 will provide english "en" Qt5 translations files only
+# Bypass is to copy all Fedora Qt5 translations files from hosts
+COPY --chown=root:root Fedora-33_translations.tar.gz /AppDir/usr
+RUN cd /AppDir/usr \
+	&& tar xvzf Fedora-33_translations.tar.gz
 
 # Copy the needed scripts from host to root used by docker run
 COPY --chown=root:root build_AppImage.sh apprun.sh /

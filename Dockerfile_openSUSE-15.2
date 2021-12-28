@@ -6,7 +6,7 @@ LABEL description="QMapShack.AppImage development build"
 
 # Update packages
 RUN zypper refresh \
-	&& zypper --non-interactive update
+    && zypper --non-interactive update
 
 # Install development environment
 RUN zypper install -y -t pattern devel_basis
@@ -14,9 +14,10 @@ RUN zypper install -y -t pattern devel_basis
 # Install needed packages
 RUN zypper install -y cmake libqt5-qtbase-devel libqt5-linguist-devel \
 	libqt5-qttools-devel libqt5-qtwebengine-devel proj-devel libjpeg8-devel \
-	libQt5Sql5-mysql libbz2-devel sqlite3-devel libcurl-devel libtiff-devel \
-	sqlite3 perl-GraphicsMagick wget subversion git fuse-devel \
-	ghostscript ghostscript-fonts-std ghostscript-fonts-std-converted
+	libQt5Sql5-mysql libqt5-qttranslations libbz2-devel sqlite3-devel \
+	libcurl-devel libtiff-devel sqlite3 perl-GraphicsMagick wget subversion \
+	git fuse-devel ghostscript ghostscript-fonts-std \
+	ghostscript-fonts-std-converted
 
 # Install PROJ 8.2.0
 # See https://proj.org/
@@ -85,7 +86,7 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 	&& chmod +x linuxdeploy*.AppImage
 
 # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
+RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin /AppDir/share/doc/HTML \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/share \

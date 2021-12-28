@@ -6,7 +6,7 @@ LABEL description="QMapShack.AppImage development build"
 
 # Update Manjaro repository and install packages
 RUN	pacman -Syu --noconfirm git base-devel cmake subversion \
-	qt5-base qt5-tools qt5-webengine wget \
+	qt5-base qt5-tools qt5-webengine qt5-translations wget \
 	fuse2 libfbclient unixodbc libpqxx freetds
 
 # Install PROJ 8.2.0
@@ -81,13 +81,13 @@ RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous
 #	&& rm -rf /var/lib/apt/lists/*
 
 # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/share /AppDir/usr/bin \
+RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin /AppDir/share/doc/HTML \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/share \
 	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
 	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
-   	&& cp -r /usr/share/qt5/translations /AppDir/usr \
+   	&& cp -r /usr/share/qt/translations /AppDir/usr \
    	&& cp /QMapShack/src/qmapshack/doc/QMSHelp.* /AppDir/share/doc/HTML
 
 # Copy the needed scripts from host to root used by docker run
