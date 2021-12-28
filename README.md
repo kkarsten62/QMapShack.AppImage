@@ -17,12 +17,12 @@ The following table shows the different available QMapShack.AppImage Docker buil
 |Ubuntu-18.04|3.20.0|5.9.5|8.2.0|3.2.2|3.3.3|2.27|GNOME/X|
 |Fedora-33|3.19.7|5.15.2|8.2.0|3.2.2|3.3.3|2.32|GNOME/X|
 |openSUSE-15.2|3.17.0|5.12.7|8.2.0|3.2.2|3.3.3|2.26|KDE|
-|Manjaro-21.2rc1|3.22.1|5.15.2|8.2.0|3.2.2|3.3.3|2.33|GNOME/X|
+|Manjaro-21.2|3.22.1|5.15.2|8.2.0|3.2.2|3.3.3|2.33|GNOME/X|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
 
-|Linux Distribution/Dockerfile_|Ubuntu-18.04|Fedora-33|openSUSE-15.2|Manjaro-21.2rc1|
+|Linux Distribution/Dockerfile_|Ubuntu-18.04|Fedora-33|openSUSE-15.2|Manjaro-21.2|
 |:-|:-:|:-:|:-:|:-:|
 |Ubuntu 18.04|Yes|No|No|No|
 |Ubuntu 20.04|Yes|No|No|No|
@@ -31,7 +31,7 @@ The following table will shows the different tested Linux desktop distributions 
 |Fedora 35|No|Yes|No|Yes|
 |openSUSE Leap 15.2|No|No|Yes|No|
 |openSUSE Leap 15.3|No|No|Yes|No|
-|Manjaro 21.2rc1|No|Yes|Yes|Yes|
+|Manjaro 21.2|No|Yes|Yes|Yes|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)

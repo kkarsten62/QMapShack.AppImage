@@ -1,6 +1,6 @@
-# Manjaro
+# Manjaro rolling release
 
-FROM manjarolinux/base:20211219
+FROM manjarolinux/base:20211226
 
 LABEL description="QMapShack.AppImage development build"
 
@@ -75,10 +75,6 @@ RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
 RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
 	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
 	&& chmod +x linuxdeploy*.AppImage
-
-# Cleansing to reduce space - Disabled for Debugging
-# RUN apt-get -y clean \
-#	&& rm -rf /var/lib/apt/lists/*
 
 # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
 RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin /AppDir/share \
