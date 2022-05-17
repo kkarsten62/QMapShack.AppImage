@@ -12,26 +12,29 @@ Not all QMapshack.AppImage builds will support all actual Linux desktop distribu
 
 The following table shows the different available QMapShack.AppImage Docker build files with the different used software components versions.
 
-|Dockerfile_|CMake|Qt|PROJ|GDAL|Routino|GLIBC|Desktop|
-|:-|:-:|:-:|:-:|-:|:-:|:-:|:-:|
-|Ubuntu-18.04|3.20.0|5.9.5|8.2.0|3.2.2|3.3.3|2.27|GNOME/X|
-|Fedora-33|3.19.7|5.15.2|8.2.0|3.2.2|3.3.3|2.32|GNOME/X|
-|openSUSE-15.2|3.17.0|5.12.7|8.2.0|3.2.2|3.3.3|2.26|KDE|
-|Manjaro-21.2|3.22.1|5.15.2|8.2.0|3.2.2|3.3.3|2.33|GNOME/X|
+|Dockerfile_|CMake|Qt|PROJ|GDAL|QuaZIP|Routino|GLIBC|Desktop|
+|:-|:-:|:-:|:-:|-:|:-:|:-:|:-:|:-:|
+|Ubuntu-18.04|3.20.0|5.9.5|8.2.0|3.2.2|1.1|3.3.3|2.27|GNOME/X|
+|Ubuntu-22.04|3.22.1|5.15.3|9.0.0|3.5.0|1.3|3.3.3|2.35|GNOME/Wayland|
+|Fedora-33|3.19.7|5.15.2|8.2.0|3.2.2|1.1|3.3.3|2.32|GNOME/X|
+|openSUSE-15.2|3.17.0|5.12.7|8.2.0|3.2.2|1.1|3.3.3|2.26|KDE|
+|Manjaro-21.2|3.22.1|5.15.2|8.2.0|3.2.2|1.1|3.3.3|2.33|GNOME/X|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
 
-|Linux Distribution/Dockerfile_|Ubuntu-18.04|Fedora-33|openSUSE-15.2|Manjaro-21.2|
-|:-|:-:|:-:|:-:|:-:|
-|Ubuntu 18.04|Yes|No|No|No|
-|Ubuntu 20.04|Yes|No|No|No|
-|Fedora 33|No|Yes|No|No|
-|Fedora 34|No|Yes|No|No|
-|Fedora 35|No|Yes|No|Yes|
-|openSUSE Leap 15.2|No|No|Yes|No|
-|openSUSE Leap 15.3|No|No|Yes|No|
-|Manjaro 21.2|No|Yes|Yes|Yes|
+|Linux Distribution/Dockerfile_|Ubuntu-18.04|Ubuntu-22.04|Fedora-33|openSUSE-15.2|Manjaro-21.2|
+|:-|:-:|:-:|:-:|:-:|:-:|
+|Ubuntu 18.04|Yes|No|No|No|No|
+|Ubuntu 20.04|Yes|No|No|No|No|
+|Ubuntu 22.04|No|Yes|Yes|Yes|No|
+|Fedora 33|No|No|Yes|No|No|
+|Fedora 34|No|No|Yes|Yes|No|
+|Fedora 35|No|No|Yes|No|No|
+|Fedora 36|No|Yes|Yes|Yes|Yes|
+|openSUSE Leap 15.2|No|No|No|Yes|No|
+|openSUSE Leap 15.3|Yes|No|No|Yes|No|
+|Manjaro 21.2|No|No|Yes|No|Yes|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)
@@ -48,7 +51,7 @@ The following table will shows the different tested Linux desktop distributions 
 		cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 	
 * The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See [here](https://docs.docker.com/engine/install/linux-postinstall/) for more details.
-## Using a ready to go one-click QMapshack.AppImage
+## Using a ready to go one-click QMapShack.AppImage
 If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from here.
 ### [Download on Wiki](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
 Choose one of the existing executable downloads which fits best to your Linux distribution. No further installation is required. One click and QMapShack should start.

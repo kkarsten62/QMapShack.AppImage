@@ -4,7 +4,15 @@ https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
 
-Version 1.16.1.development.0, 2022-05-04
+Version 1.16.1.development.2, 2022-05-17
+
+Bugs fixed and enhancements:
+
+[17] Build new Dockerfile for Ubuntu 22.04
+[18] Check existing QMapShack.AppImages for Fedora 36
+
+
+Version 1.16.1.development.1, 2022-05-04
 
 Bugs fixed and enhancements:
 [16] Update Manjaro to the latest rolling release, 2022-05-01
