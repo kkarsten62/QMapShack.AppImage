@@ -4,6 +4,19 @@ https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
 
+Version 1.16.1.development.3, 2022-08-13
+
+Bugs fixed and enhancements:
+
+[19] Provide new builds based on Qt Version >= 5.15.2
+- PROJ update to version 9.0.1
+- GDAL update to version 3.5.1
+- "End of live" last builds for:
+  Ubuntu 18.04, Ubuntu 20.04,
+  Fedora 33, Fedora 34,
+  openSUSE 15.2, openSUSE 15.3
+
+
 Version 1.16.1.development.2, 2022-05-17
 
 Bugs fixed and enhancements:

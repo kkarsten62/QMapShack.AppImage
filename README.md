@@ -7,34 +7,27 @@ Build **ONE single QMapShack executable file** based on **QMapShack** latest dev
 * But you would like to review and test the latest development commits?
 
 Then, may be you could use a ready to go one-click QMapshack.AppImage executable file.
-## Available QMapShack.AppImage Dockerfiles
+## QMapShack.AppImage Dockerfiles in service
 Not all QMapshack.AppImage builds will support all actual Linux desktop distributions. So therefore different QMapShack.AppImage Docker build files are available to support different Linux distributions. Reasons and details behind can be found [here](https://docs.appimage.org/introduction/concepts.html).
 
 The following table shows the different available QMapShack.AppImage Docker build files with the different used software components versions.
 
 |Dockerfile_|CMake|Qt|PROJ|GDAL|QuaZIP|Routino|GLIBC|Desktop|
-|:-|:-:|:-:|:-:|-:|:-:|:-:|:-:|:-:|
-|Ubuntu-18.04|3.20.0|5.9.5|8.2.0|3.2.2|1.1|3.3.3|2.27|GNOME/X|
-|Ubuntu-22.04|3.22.1|5.15.3|9.0.0|3.5.0|1.3|3.3.3|2.35|GNOME/Wayland|
-|Fedora-33|3.19.7|5.15.2|8.2.0|3.2.2|1.1|3.3.3|2.32|GNOME/X|
-|openSUSE-15.2|3.17.0|5.12.7|8.2.0|3.2.2|1.1|3.3.3|2.26|KDE|
-|Manjaro-21.2|3.22.1|5.15.2|8.2.0|3.2.2|1.1|3.3.3|2.33|GNOME/X|
+|:-|:-|:-|:-|:-|:-|:-|:-|:-|
+|Ubuntu-22.04|3.22.1|5.15.3|9.0.1|3.5.1|1.3|3.3.3|2.35|GNOME/X|
+|Fedora-35|3.22.2|5.15.2|9.0.1|3.5.1|1.3|3.3.3|2.34|GNOME/X|
+|openSUSE-15.4|3.20.4|5.15.2|9.0.1|3.5.1|1.3|3.3.3|2.31|KDE|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
 
-|Linux Distribution/Dockerfile_|Ubuntu-18.04|Ubuntu-22.04|Fedora-33|openSUSE-15.2|Manjaro-21.2|
-|:-|:-:|:-:|:-:|:-:|:-:|
-|Ubuntu 18.04|Yes|No|No|No|No|
-|Ubuntu 20.04|Yes|No|No|No|No|
-|Ubuntu 22.04|No|Yes|Yes|Yes|No|
-|Fedora 33|No|No|Yes|No|No|
-|Fedora 34|No|No|Yes|Yes|No|
-|Fedora 35|No|No|Yes|No|No|
-|Fedora 36|No|Yes|Yes|Yes|Yes|
-|openSUSE Leap 15.2|No|No|No|Yes|No|
-|openSUSE Leap 15.3|Yes|No|No|Yes|No|
-|Manjaro 21.2|No|No|Yes|No|Yes|
+|Linux Distribution/Dockerfile_|Ubuntu-22.04|Fedora-35|openSUSE-15.4|
+|:-|:-:|:-:|:-:|
+|Ubuntu 22.04|Yes|Yes|No|
+|Fedora 35|No|Yes|No|
+|Fedora 36|Yes|Yes|Yes|
+|openSUSE Leap 15.4|No|No|Yes|
+|Manjaro 21.3.6 (2022-08-12)|Yes|Yes|No|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)
@@ -52,8 +45,8 @@ The following table will shows the different tested Linux desktop distributions 
 	
 * The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See [here](https://docs.docker.com/engine/install/linux-postinstall/) for more details.
 ## Using a ready to go one-click QMapShack.AppImage
-If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from here.
-### [Download on Wiki](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
+If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from the Wiki page. In addition you will find older QMapShackAppImage which are out of service.
+### [Download from Wiki page](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
 Choose one of the existing executable downloads which fits best to your Linux distribution. No further installation is required. One click and QMapShack should start.
 *Have fun with QMapshack.AppImage.*
 # Installation
@@ -173,3 +166,4 @@ Thanks to AppImage  -To bring it to the point.
 
 And a big thanks to the QMapShack community for the stable and continuous development.
 <https://github.com/Maproom/qmapshack/wiki>
+
