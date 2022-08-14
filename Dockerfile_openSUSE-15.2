@@ -19,42 +19,40 @@ RUN zypper install -y cmake libqt5-qtbase-devel libqt5-linguist-devel \
 	git fuse-devel ghostscript ghostscript-fonts-std \
 	ghostscript-fonts-std-converted
 
-# Install PROJ 8.2.0
+# Install PROJ 9.0.1
 # See https://proj.org/
-RUN wget https://download.osgeo.org/proj/proj-8.2.0.tar.gz \
-	&& tar xzvf proj-8.2.0.tar.gz \
-	&& cd proj-8.2.0 \
+RUN wget https://download.osgeo.org/proj/proj-9.0.1.tar.gz \
+	&& tar xzvf proj-9.0.1.tar.gz \
+	&& cd proj-9.0.1 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-	&& cmake --build . -j$(nproc) \
-	&& cmake --build . --target install \
+	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf proj-8.2.0.tar.gz proj-8.2.0
+	&& rm -rf proj-9.0.1.tar.gz proj-9.0.1
 
-# Install GDAL 3.2.2
+# Install GDAL 3.5.1
 # See https://gdal.org/
-RUN wget https://github.com/OSGeo/gdal/releases/download/v3.2.2/gdal-3.2.2.tar.gz \
-	&& tar xvzf gdal-3.2.2.tar.gz \
-	&& cd gdal-3.2.2 \
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.5.1/gdal-3.5.1.tar.gz \
+	&& tar xvzf gdal-3.5.1.tar.gz \
+	&& cd gdal-3.5.1 \
 	&& ./configure --prefix=/usr --libdir=/usr/lib64 \
 	&& make -j$(nproc) \
 	&& make install \
 	&& cd / \
-	&& rm -rf gdal-3.2.2.tar.gz gdal-3.2.2
+	&& rm -rf gdal-3.5.1.tar.gz gdal-3.5.1
 
-# Install QUAZIP 1.1
+# Install QUAZIP 1.3
 # See https://stachenov.github.io/quazip/
-RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.1.tar.gz \
-	&& tar xvzf v1.1.tar.gz \
-	&& cd quazip-1.1 \
+RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.3.tar.gz \
+	&& tar xvzf v1.3.tar.gz \
+	&& cd quazip-1.3 \
 	&& mkdir build \
 	&& cd build \
-	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-	&& cmake --build . -j$(nproc) \
-	&& cmake --build . --target install \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -D QUAZIP_QT_MAJOR_VERSION=5 \
+	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf xvzf v1.1.tar.gz quazip-1.1
+	&& rm -rf xvzf v1.3.tar.gz quazip-1.3
 
 # Install Routino 3.3.3
 # See http://www.routino.org/
@@ -67,10 +65,14 @@ RUN svn co http://routino.org/svn/trunk routino \
 	&& cd / \
 	&& rm -rf routino
 
-# Install QMapShack, latest development commit
+# Install QMapShack
+# Based on latest development commit valid for Qt version 5.8.0
 # Make only - No make install
 # See https://github.com/Maproom/qmapshack
 RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
+	&& cd QMapShack \
+	&& git checkout 269272f \
+	&& cd .. \
 	&& mkdir build_QMapShack \
 	&& cd build_QMapShack \
 	&& cmake ../QMapShack \
