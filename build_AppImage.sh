@@ -35,8 +35,22 @@ if [ $OS = "ubuntu" ]; then
         --library /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so"
 fi
 
+# Workaround for glibc = 2.36 (ldd) update causes dynamic dependency failure
+# See https://github.com/linuxdeploy/linuxdeploy/issues/210
+GLIBC_VERSION=$(ldd --version | sed 1q | sed "s/ldd (GNU libc) // g")
+if [ $GLIBC_VERSION = "2.36" ]; then
+	mv /usr/bin/ldd{,.ori}
+	printf '#!/usr/bin/env bash\nldd.ori "$@" | grep -v linux-vdso | grep -v ld-linux\n' > /usr/bin/ldd
+	chmod 777 /usr/bin/ldd
+fi
+
 # Run deploy
 $DEPLOY_CMD
+
+# Change back workaround for glibc = 2.36
+if [ $GLIBC_VERSION = "2.36" ]; then
+	mv /usr/bin/ldd{.ori,}
+fi
 
 # Copy AppImage to host file system folder
 mv QMapShack-x86_64.AppImage /out
