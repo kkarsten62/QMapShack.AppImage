@@ -4,6 +4,18 @@ https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
 
+Version 1.16.1.development.4, 2022-10-30
+
+Bugs fixed and enhancements:
+
+[21] Provide update builds based on latest developments
+- Based on latest QMS Commit [QMS-560], 2022-10-24
+  Handle the case when the filter is not applicable better
+- PROJ update to version 9.1.0
+- GDAL update to version 3.5.2
+- Reset workaround for GLIBC 2.36 (Manjaro) in build_AppImage.sh
+
+
 Version 1.16.1.development.3, 2022-08-14
 
 Bugs fixed and enhancements:
