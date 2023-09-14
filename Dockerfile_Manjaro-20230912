@@ -63,9 +63,6 @@ RUN svn co http://routino.org/svn/trunk routino \
 #	&& git checkout V_1.17.0 \
 #	&& cd .. \
 RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
-	&& cd QMapShack \
-	&& git checkout V_1.17.0 \
-	&& cd .. \
 	&& mkdir build_QMapShack \
 	&& cd build_QMapShack \
 	&& cmake ../QMapShack \

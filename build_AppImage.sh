@@ -5,7 +5,7 @@ set -e
 # Make and install QMapShack
 # Comment  "git pull" when compiling a specific version by using git checkout TAG/VERSION
 cd /QMapShack
-# git pull
+git pull
 cd /build_QMapShack
 make qmapshack -j$(nproc)
 make install DESTDIR=/AppDir
