@@ -8,27 +8,29 @@ Build **ONE single QMapShack executable file** based on **QMapShack** latest dev
 
 Then, may be you could use a ready to go one-click QMapshack.AppImage executable file.
 ## QMapShack.AppImage Dockerfiles in service
-Not all QMapshack.AppImage builds will support all actual Linux desktop distributions. So therefore different QMapShack.AppImage Docker build files are available to support different Linux distributions. Reasons and details behind can be found [here](https://docs.appimage.org/introduction/concepts.html).
+Not all QMapshack.AppImage builds will support all actual Linux desktop distributions. So therefore different QMapShack.AppImage Docker build files are available to support different Linux d
+istributions. Reasons and details behind can be found [here](https://docs.appimage.org/introduction/concepts.html).
 
 The following table shows the different available QMapShack.AppImage Docker build files with the different used software components versions.
 
 |Dockerfile_|CMake|Qt|PROJ|GDAL|QuaZIP|Routino|GLIBC|Desktop|
 |:-|:-|:-|:-|:-|:-|:-|:-|:-|
-|Ubuntu-22.04|3.22.1|5.15.3|9.1.0|3.5.2|1.3|3.3.3|2.35|GNOME/X|
-|Fedora-35|3.22.2|5.15.2|9.1.0|3.5.2|1.3|3.3.3|2.34|GNOME/X|
-|openSUSE-15.4|3.20.4|5.15.2|9.1.0|3.5.2|1.3|3.3.3|2.31|KDE|
-|Manjaro-20221028|3.23.3|5.15.5|9.1.0|3.5.2|1.3|3.3.3|2.36|GNOME/X|
+|Ubuntu-22.04|3.22.1|5.15.3|9.3.0|3.7.1|1.4|3.4.1|2.35|GNOME/X|
+|Fedora-37|3.27.1|5.15.9|9.3.0|3.7.1|1.4|3.4.1|2.36|GNOME/X|
+|openSUSE-15.4|3.20.4|5.15.2|9.3.0|3.7.1|1.4|3.4.1|2.31|KDE|
+|Manjaro-20230912|3.27.4|5.15.10|9.3.0|3.7.1|1.4|3.4.1|2.38|GNOME/X|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
 
-|Linux Distribution/Dockerfile_|Ubuntu-22.04|Fedora-35|openSUSE-15.4|Manjaro-20221028|
+|Linux Distribution/Dockerfile_|Ubuntu-22.04|Fedora-37|openSUSE-15.4|Manjaro-20230912|
 |:-|:-:|:-:|:-:|:-:|
-|Ubuntu 22.04|Yes|Yes|No|No|
-|Fedora 35|No|Yes|No|No|
-|Fedora 36|Yes|Yes|Yes|No|
+|Ubuntu 22.04|Yes|No|Yes|No|
+|Fedora 37|Yes|Yes|Yes|No|
+|Fedora 38|Yes|Yes|Yes|No|
 |openSUSE Leap 15.4|No|No|Yes|No|
-|Manjaro 2022-10-28|Yes|Yes|No|Yes|
+|openSUSE Leap 15.5|No|No|Yes|No|
+|Manjaro 2023-09-12|Yes|Yes|Yes|Yes|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)
@@ -39,20 +41,24 @@ The following table will shows the different tested Linux desktop distributions 
 * Some Linux skills to handle a terminal
 ## Be aware
 * You are using software from a development branch. QMapShack is most of time quite stable during development process - but there is no guarantee!
-* This setup is valid as long as there are no changes in the prerequisites to build QMapShack (ex. CMakefile.txt, PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according to the changes of the new prerequisites.
-* When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also, for example in a Ubuntu and Fedora environment:
+* This setup is valid as long as there are no changes in the prerequisites to build QMapShack (ex. CMakefile.txt, PROJ, GDAL, CMake, etc.). Then the Dockerfile needs to be updated according 
+to the changes of the new prerequisites.
+* When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using QMapShack.AppImage. Do not 
+forget to save your setting files also, for example in a Ubuntu and Fedora environment:
 
 		cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 	
-* The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See [here](https://docs.docker.com/engine/install/linux-postinstall/) for more details.
+* The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon a
+lways runs as the `root` user. So please be carefull in using with root access rights (sudo). See [here](https://docs.docker.com/engine/install/linux-postinstall/) for more details.
 ## Using a ready to go one-click QMapShack.AppImage
-If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from the Wiki page. In addition you will find older QMapShackAppImage which are out of service.
+If you prefer to use an already build QMapshack.AppImage executable file based on one of the latest development commits you can download it from the Wiki page. In addition you will find olde
+r QMapShackAppImage which are out of service.
 ### [Download from Wiki page](https://github.com/kkarsten62/QMapShack.AppImage/wiki)
 Choose one of the existing executable downloads which fits best to your Linux distribution. No further installation is required. One click and QMapShack should start.
 *Have fun with QMapshack.AppImage.*
 # Installation
 ## Install Docker
-Details about Docker and the installation steps for the wide range of Linux distribution can be found [here](https://docs.docker.com/engine/install/). An external installation guide for openSUSE installation can be found [here](https://www.osradar.com/install-docker-opensuse-15-2-15-1/), and for Manjaro [here](https://linuxconfig.org/manjaro-linux-docker-installation).
+Details about Docker and the installation steps for the wide range of Linux distribution can be found [here](https://docs.docker.com/engine/install/). An external installation guide for openSUSE can be found [here](https://www.osradar.com/install-docker-opensuse-15-2-15-1/), and for Manjaro [here](https://linuxconfig.org/manjaro-linux-docker-installation).
 
 Verify that Docker Engine is installed correctly by running the `hello-world` image.
 
@@ -81,6 +87,7 @@ For example:
 *Note:*
 * Be patient and take a coffee, build process will take some time - about 1-2 hours.
 * To save time, the `--no-cache` option can be omitted during testing, but should be set on final build run.
+* In newer Docker versions you can use option `progress=plain` to obtain classical plain terminal output during build process.
 
 Check for latest information in terminal:
 
@@ -143,10 +150,12 @@ A new folder called `squashfs-root` is created, containing the content of QMapSh
 # Known issues
 ## Hard coded pathes in QMapShack
 Seen from AppImage the pathes `/usr/share/routino (ROUTINO_XML_PATH)` and `/usr/share/doc/HTML` are hard-coded pathes in QMapShack binary file.
-See [here](https://docs.appimage.org/packaging-guide/manual.html#no-hard-coded-paths) for more information. Current bypass is to copy at start of QMapShack.Appimage the routino profiles and help files to a /tmp folder.  The /tmp folder will be removed when QMapShack finished.
+See [here](https://docs.appimage.org/packaging-guide/manual.html#no-hard-coded-paths) for more information. Current bypass is to copy at start of QMapShack.Appimage the routino profiles and 
+help files to a /tmp folder.  The /tmp folder will be removed when QMapShack finished.
 # Troubleshooting
 ## Mixing up different versions of QMapShack
-In a case of a strange behaviour in handling of QMapShack, it may help to delete the configuration. **Be aware:** All your personal settings for the GUI will be lost. Finish QMapShack first. Before doing so, however, back up the existing configuration. QMapShack will then start with the default configuration. 
+In a case of a strange behaviour in handling of QMapShack, it may help to delete the configuration. **Be aware:** All your personal settings for the GUI will be lost. Finish QMapShack first.
+ Before doing so, however, back up the existing configuration. QMapShack will then start with the default configuration. 
 
 	cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak
 	rm -rf ~/.config/QLandkarte
@@ -167,4 +176,3 @@ Thanks to AppImage  -To bring it to the point.
 
 And a big thanks to the QMapShack community for the stable and continuous development.
 <https://github.com/Maproom/qmapshack/wiki>
-
