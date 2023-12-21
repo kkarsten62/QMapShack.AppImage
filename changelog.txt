@@ -4,6 +4,18 @@ https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
 
+Version 1.17.1, offical QMS release, 2023-12-21
+
+Bugs fixed and enhancements:
+
+[24] Provide update builds based on QMS V_1.17.1
+- Based on QMS version V_1.17.1
+- PROJ update to version 9.3.1
+- GDAL update to version 3.8.1
+- Fedora 37 out of Service
+- Cleanup git repo
+
+
 Version 1.17.0.development.0, 2023-09-13
 
 Bugs fixed and enhancements:

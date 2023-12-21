@@ -15,22 +15,22 @@ The following table shows the different available QMapShack.AppImage Docker buil
 
 |Dockerfile_|CMake|Qt|PROJ|GDAL|QuaZIP|Routino|GLIBC|Desktop|
 |:-|:-|:-|:-|:-|:-|:-|:-|:-|
-|Ubuntu-22.04|3.22.1|5.15.3|9.3.0|3.7.1|1.4|3.4.1|2.35|GNOME/X|
-|Fedora-37|3.27.1|5.15.9|9.3.0|3.7.1|1.4|3.4.1|2.36|GNOME/X|
-|openSUSE-15.4|3.20.4|5.15.2|9.3.0|3.7.1|1.4|3.4.1|2.31|KDE|
-|Manjaro-20230912|3.27.4|5.15.10|9.3.0|3.7.1|1.4|3.4.1|2.38|GNOME/X|
+|Ubuntu-22.04|3.22.1|5.15.3|9.3.1|3.8.1|1.4|3.4.1|2.35|GNOME/X|
+|Fedora-38|3.27.7|5.15.11|9.3.1|3.8.1|1.4|3.4.1|2.37|GNOME/X|
+|openSUSE-15.4|3.20.4|5.15.2|9.3.1|3.8.1|1.4|3.4.1|2.31|KDE|
+|Manjaro-20231217|3.27.4|5.15.10|9.3.1|3.8.1|1.4|3.4.1|2.38|GNOME/X|
 
 ### Compatible matrix
 The following table will shows the different tested Linux desktop distributions for the available QMapShack.AppImage Docker build files.
 
-|Linux Distribution/Dockerfile_|Ubuntu-22.04|Fedora-37|openSUSE-15.4|Manjaro-20230912|
+|Linux Distribution/Dockerfile_|Ubuntu-22.04|Fedora-38|openSUSE-15.4|Manjaro-20231217|
 |:-|:-:|:-:|:-:|:-:|
-|Ubuntu 22.04|Yes|No|Yes|No|
+|Ubuntu 22.04|Yes|Yes|Yes|No|
 |Fedora 37|Yes|Yes|Yes|No|
 |Fedora 38|Yes|Yes|Yes|No|
 |openSUSE Leap 15.4|No|No|Yes|No|
 |openSUSE Leap 15.5|No|No|Yes|No|
-|Manjaro 2023-09-12|Yes|Yes|Yes|Yes|
+|Manjaro 2023-12-17|Yes|Yes|Yes|Yes|
 
 ## Requirements
 * Computer with 64-bit architecture (x86_64)
@@ -82,12 +82,12 @@ Build the image:
 
 For example:
 
-	sudo docker build -t qms-appimage:0.0.0 --no-cache --file Dockerfile_Ubuntu-18.04 .
+	sudo docker build -t qms-appimage:0.0.0 --no-cache --file Dockerfile_Ubuntu-22.04 .
 
 *Note:*
 * Be patient and take a coffee, build process will take some time - about 1-2 hours.
 * To save time, the `--no-cache` option can be omitted during testing, but should be set on final build run.
-* In newer Docker versions you can use option `progress=plain` to obtain classical plain terminal output during build process.
+* In newer Docker versions you can use option `--progress=plain` to obtain classical plain terminal output during build process.
 
 Check for latest information in terminal:
 

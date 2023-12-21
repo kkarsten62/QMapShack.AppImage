@@ -1,0 +1,111 @@
+# Fedora 38
+
+FROM fedora:38
+
+LABEL description="QMapShack.AppImage development build"
+
+# Update packages
+RUN dnf -y upgrade
+
+# Install development environment
+RUN dnf -y groupinstall "Development Tools" "Development Libraries"
+
+# Install needed packages
+RUN dnf -y install wget libasan qt5-linguist qt5-qttools-static qt5-qtwebengine-devel \
+	qt5-qtbase-mysql libjpeg-turbo-devel alglib-devel gdal-devel nss-softokn-devel \
+	libtiff-devel libsq3-devel qt-creator qt5-qttranslations
+
+# Install PROJ 9.3.1
+# See https://proj.org/
+RUN wget https://download.osgeo.org/proj/proj-9.3.1.tar.gz \
+	&& tar xzvf proj-9.3.1.tar.gz \
+	&& cd proj-9.3.1 \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+	&& cmake --build . -j$(nproc) --target install \
+	&& cd / \
+	&& rm -rf proj-9.3.1.tar.gz proj-9.3.1
+
+# Install GDAL 3.8.1
+# See https://gdal.org/
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.8.1/gdal-3.8.1.tar.gz \
+	&& tar xvzf gdal-3.8.1.tar.gz \
+	&& cd gdal-3.8.1 \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
+	&& cmake --build . -j$(nproc) --target install \
+	&& cd / \
+	&& rm -rf gdal-3.8.1.tar.gz gdal-3.8.1
+
+# Install QUAZIP 1.4
+# See https://stachenov.github.io/quazip/
+RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.4.tar.gz \
+	&& tar xvzf v1.4.tar.gz \
+	&& cd quazip-1.4 \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -D QUAZIP_QT_MAJOR_VERSION=5 \
+	&& cmake --build . -j$(nproc) --target install \
+	&& cd / \
+	&& rm -rf xvzf v1.4.tar.gz quazip-1.4
+
+# Install Routino 3.4.1
+# See http://www.routino.org/
+RUN svn co http://routino.org/svn/trunk routino \
+	&& cd routino \
+	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
+	&& sed -i '51 s|libdir=$(prefix)/lib|libdir=$(prefix)/lib64|' Makefile.conf \
+	&& make -j$(nproc) \
+	&& make install	\
+	&& cd / \
+	&& rm -rf routino
+
+# Install QMapShack
+# Install QMapShack, latest development commit
+# Make only - No make install
+# See https://github.com/Maproom/qmapshack
+# To be used when settinhg to a specific TAG/VERSION after cloning
+#	&& cd QMapShack \
+#	&& git checkout V_1.17.0 \
+#	&& cd .. \
+RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
+	&& mkdir build_QMapShack \
+	&& cd build_QMapShack \
+	&& cmake ../QMapShack \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_QMAPTOOL=OFF \
+	&& make qmapshack -j$(nproc) \
+	&& cd /
+
+# Install AppImage
+# See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
+RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
+	&& chmod +x linuxdeploy*.AppImage
+
+# Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
+RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin \
+	&& cp -r /usr/share/gdal /AppDir/usr/share \
+	&& cp -r /usr/share/proj /AppDir/usr/share \
+	&& cp -r /usr/share/routino /AppDir/usr/share \
+	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
+	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
+   	&& cp -r /usr/share/qt5/translations /AppDir/usr
+	
+# DockerHub Image of fedora:37 will provide english "en" Qt5 translations files only
+# Bypass is to copy all Fedora Qt5 translations files from host
+COPY --chown=root:root Fedora-38_translations.tar.gz /AppDir/usr
+RUN cd /AppDir/usr \
+	&& tar xvzf Fedora-38_translations.tar.gz
+
+# Copy the needed scripts from host to root used by docker run
+COPY --chown=root:root build_AppImage.sh apprun.sh /
+
+# Docker run will open a bash as default
+CMD ["/bin/bash"]
+
+RUN echo -e "\n\n=====================================================" \
+	&& echo -e "QMapShack.AppImage Docker image successfully created!" \
+	&& echo -e "=====================================================\n\n"

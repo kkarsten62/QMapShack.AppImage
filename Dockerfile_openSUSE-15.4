@@ -1,4 +1,4 @@
-# openSUSE 15.4 Leap
+# OpenSUSE 15.4 Leap
 
 FROM opensuse/leap:15.4
 
@@ -19,29 +19,29 @@ RUN zypper install -y cmake libqt5-qtbase-devel libqt5-linguist-devel \
 	git fuse-devel ghostscript ghostscript-fonts-std \
 	cmake gzip ghostscript-fonts-std-converted
 
-# Install PROJ 9.3.0
+# Install PROJ 9.3.1
 # See https://proj.org/
-RUN wget https://download.osgeo.org/proj/proj-9.3.0.tar.gz \
-	&& tar xzvf proj-9.3.0.tar.gz \
-	&& cd proj-9.3.0 \
+RUN wget https://download.osgeo.org/proj/proj-9.3.1.tar.gz \
+	&& tar xzvf proj-9.3.1.tar.gz \
+	&& cd proj-9.3.1 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf proj-9.3.0.tar.gz proj-9.3.0
+	&& rm -rf proj-9.3.1.tar.gz proj-9.3.1
 
-# Install GDAL 3.7.1
+# Install GDAL 3.8.1
 # See https://gdal.org/
-RUN wget https://github.com/OSGeo/gdal/releases/download/v3.7.1/gdal-3.7.1.tar.gz \
-        && tar xvzf gdal-3.7.1.tar.gz \
-        && cd gdal-3.7.1 \
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.8.1/gdal-3.8.1.tar.gz \
+        && tar xvzf gdal-3.8.1.tar.gz \
+        && cd gdal-3.8.1 \
         && mkdir build \
         && cd build \
         && cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
         && cmake --build . -j$(nproc) --target install \
         && cd / \
-        && rm -rf gdal-3.7.1.tar.gz gdal-3.7.1
+        && rm -rf gdal-3.8.1.tar.gz gdal-3.8.1
 
 # Install QUAZIP 1.4
 # See https://stachenov.github.io/quazip/
