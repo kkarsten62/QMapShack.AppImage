@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -12,7 +12,8 @@ make install DESTDIR=/AppDir
 cd /
 
 # Identify OS (ubuntu, fedora, manajaro, ...)
-OS=$(cat /etc/os-release | sed -n '/^ID=/s/ID=//p')
+OS_VERSION=$(cat /etc/os-release | sed -n '/^ID=/s/ID=//p')
+OS_VERSION_ID=$(cat /etc/os-release | sed -n '/^VERSION_ID=/s/VERSION_ID=//p')
 
 # Bypass hard-coded QMapshack pathes, used to copy data to /tmp
 # /usr/share/routino, /usr/share/doc/HTML
@@ -30,7 +31,7 @@ DEPLOY_CMD="./linuxdeploy-x86_64.AppImage \
 	--output appimage"
 
 # Check for OS Ubuntu and add needed libs for Ubuntu
-if [ $OS = "ubuntu" ]; then
+if [[ $OS_VERSION == "ubuntu" ]]; then
     DEPLOY_CMD="$DEPLOY_CMD \
         --library /usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so \
         --library /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so"
@@ -39,17 +40,25 @@ fi
 # Workaround for glibc = 2.36 (ldd) update causes dynamic dependency failure
 # See https://github.com/linuxdeploy/linuxdeploy/issues/210
 # GLIBC_VERSION=$(ldd --version | sed 1q | sed "s/ldd (GNU libc) // g")
-# if [ $GLIBC_VERSION = "2.36" ]; then
+# if [[ $GLIBC_VERSION == "2.36" ]]; then
 #	mv /usr/bin/ldd{,.ori}
 #	printf '#!/usr/bin/env bash\nldd.ori "$@" | grep -v linux-vdso | grep -v ld-linux\n' > /usr/bin/ldd
 #	chmod 777 /usr/bin/ldd
 # fi
 
+# KKA, 2024-06-03: Workaround for "Strip call error" in linuxdeploy
+# First seen on Fedora 40 and Manjaro 20240602
+# See https://github.com/linuxdeploy/linuxdeploy/issues/272
+if [[ ($OS_VERSION == "fedora" && $OS_VERSION_ID == "40") || \
+	($OS_VERSION == "manjaro") ]]; then
+	export NO_STRIP=true
+fi
+
 # Run deploy
 $DEPLOY_CMD
 
 # Change back workaround for glibc = 2.36
-# if [ $GLIBC_VERSION = "2.36" ]; then
+# if [[ $GLIBC_VERSION == "2.36" ]]; then
 #	mv /usr/bin/ldd{.ori,}
 # fi
 

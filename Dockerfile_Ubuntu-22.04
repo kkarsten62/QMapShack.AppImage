@@ -17,29 +17,29 @@ RUN apt-get -y install build-essential subversion wget git cmake qtbase5-dev \
 	libcurl4-nss-dev libtiff-dev libghc-bzlib-dev fuse libpython3-dev \
 	file libgraphics-magick-perl
 
-# Install PROJ 9.3.1
+# Install PROJ 9.4.1
 # See https://proj.org/
-RUN wget https://download.osgeo.org/proj/proj-9.3.1.tar.gz \
-	&& tar xzvf proj-9.3.1.tar.gz \
-	&& cd proj-9.3.1 \
+RUN wget https://download.osgeo.org/proj/proj-9.4.1.tar.gz \
+	&& tar xzvf proj-9.4.1.tar.gz \
+	&& cd proj-9.4.1 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf proj-9.3.1.tar.gz proj-9.1.0
+	&& rm -rf proj-9.4.1.tar.gz proj-9.4.1
 
-# Install GDAL 3.8.1
+# Install GDAL 3.9.0
 # See https://gdal.org/
-RUN wget https://github.com/OSGeo/gdal/releases/download/v3.8.1/gdal-3.8.1.tar.gz \
-	&& tar xvzf gdal-3.8.1.tar.gz \
-	&& cd gdal-3.8.1 \
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.9.0/gdal-3.9.0.tar.gz \
+	&& tar xvzf gdal-3.9.0.tar.gz \
+	&& cd gdal-3.9.0 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf gdal-3.8.1.tar.gz gdal-3.8.1
+	&& rm -rf gdal-3.9.0.tar.gz gdal-3.9.0
 
 # Install QUAZIP 1.4
 # See https://stachenov.github.io/quazip/

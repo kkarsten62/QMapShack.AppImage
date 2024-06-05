@@ -4,6 +4,19 @@ https://github.com/kkarsten62/QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage/wiki
 
 
+Version 1.17.1.development.0, 2024-06-05
+
+Bugs fixed and enhancements:
+
+[25] Provide QMS latest development builds based on top of QMS V_1.17.1
+- Latest QMS Commit [QMS-675], 2024-04-24:
+  "Apply font size and color to polylines"
+- PROJ update to version 9.4.1 (except openSUSE 15.5)
+- GDAL update to version 3.9.0 (except openSUSE 15.50)
+- Introducing Fedora 40 and Ubuntu 24.04
+- Fedora 38 and 39 and openSUSE 15.4 end of live (out of service)
+
+
 Version 1.17.1, offical QMS release, 2023-12-21
 
 Bugs fixed and enhancements:
