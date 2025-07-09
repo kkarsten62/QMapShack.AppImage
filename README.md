@@ -1,5 +1,14 @@
 # 1. QMapShack.AppImage
 
+---
+*Note:*
+
+Status of `2025-07-06`
+
+QMapShack version 1.18.0 is available. QMapShack.AppImages are still referring to QMapShack version 1.17.1. New QMapShack.AppImages will be build as soon there is progress in new development based on version 1.18.0.
+
+---
+
 Build **ONE single QMapShack executable file** based on **QMapShack** latest development commits by using **Docker** and **AppImage**.
 
 * You are using a Linux distribution like Ubuntu, Fedora, openSUSE, Manjaro, ... ?
@@ -78,11 +87,13 @@ Verify that Docker Engine is installed correctly by running the `hello-world` im
 Create a folder of your choice, example `GPS` or choose an existing one:
 
 `mkdir GPS`
+
 `cd ~/GPS`
 
 Download repository from GitHub:
 
 `git clone https://github.com/kkarsten62/QMapShack.AppImage.git`
+
 `cd QMapShack.AppImage`
 
 ## 2.3. Build Docker image
@@ -118,6 +129,7 @@ Steps on Docker Run:
 Start building new QMapShack version with:
 
 `cd ~/GPS/qmapshack-AppImage`
+
 `sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0 /build_AppImage.sh`
 
 Check for latest information in terminal:
@@ -134,6 +146,7 @@ Check 'out' folder for new QMapShack.AppImage file
 Additionally you can enter into the Docker container by using a bash shell to inspect the content:
 
 `cd ~/GPS/qmapshack-AppImage`
+
 `sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0`
 
 Use `exit` to step out.
@@ -141,6 +154,7 @@ Use `exit` to step out.
 # 3. Start QMapShack.AppImage
 
 `cd ~/GPS/qmapshack-AppImage/out`
+
 `./QMapShack-x86_64.AppImage [options]`
 	
 The `[options]` can be set according to QMapShack commandline options, see [here](https://github.com/Maproom/qmapshack/wiki/DocCmdOptions/) for more details.
@@ -152,6 +166,7 @@ See [here](https://docs.appimage.org/user-guide/run-appimages.html#mount-an-appi
 ## 4.1. Mount
 
 `cd ~/GPS/qmapshack-AppImage/out`
+
 `./QMapShack-x86_64.AppImage --appimage-mount`
 
 Now, use another terminal or file manager to inspect the content of QMapShack.AppImage in the folder printed by `--appimage-mount`.
@@ -159,6 +174,7 @@ Now, use another terminal or file manager to inspect the content of QMapShack.Ap
 ## 4.2. Extract
 
 `cd ~/GPS/qmapshack-AppImage/out`
+
 `./QMapShack-x86_64.AppImage --appimage-extract`
 
 A new folder called `squashfs-root` is created, containing the content of QMapShack.AppImage.
@@ -177,6 +193,7 @@ See [here](https://docs.appimage.org/packaging-guide/manual.html#no-hard-coded-p
 In a case of a strange behaviour in handling of QMapShack, it may help to delete the configuration. **Be aware:** All your personal settings for the GUI will be lost. Finish QMapShack first. Before doing so, however, back up the existing configuration. QMapShack will then start with the default configuration. 
 
 `cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak`
+
 `rm -rf ~/.config/QLandkarte`
 
 A good practices could be also to start QMapShack.AppImage with a dedicated configration file using `-c` option to avoid conflicts with an existing QMapShack installation, like:
