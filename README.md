@@ -16,6 +16,7 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 * You are using software from a development branch. QMapShack is most of time quite stable during development process - but there is no guarantee!
 to the changes of the new prerequisites.
 * When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also, for example in a Ubuntu and Fedora environment:
+
 `cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak`
 
 ## Build based on:
@@ -27,11 +28,11 @@ to the changes of the new prerequisites.
 * Qt 6.8.3
 * PROJ 9.4.1
 * GDAL 3.9.0
-* QUAZP 1.5
+* QUAZIP 1.5
 * Routino 3.4.3
-* QMapShack V_1.8.0, development commit 11f5782, [QMS-659] POI file error and version handling
+* QMapShack V_1.8.0, development commit [11f5782](https://github.com/Maproom/qmapshack/commit/11f5782676ff194cf42f8438a1932f6b74af384d), [QMS-659] POI file error and version handling
 
-## Supported Linux distros:
+## Supported Linux distributions:
 
 * Ubuntu 22.04 and 24.04
 * Fedora Workstation 41/42 / Gnome, KDE / Wayland
