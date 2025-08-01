@@ -38,7 +38,7 @@ to the changes of the new prerequisites.
 * openSUSE 15.6 KDE
 * and maybe some more Linux distribution
 
-[Download pre-build QMapShack-x86_64.AppImage from here (xxx MB)](url)
+[Download pre-build QMapShack-x86_64.AppImage from here (613 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.18.0.development.0/QMapShack-x86_64.AppImage)
 
 After download change user rights for execution:
 
@@ -84,7 +84,7 @@ Download repository from GitHub:
 
 For building process a manual built Qt environment is needed.
 
-[Download pre-build Qt environment from here (xxx MB)](url)
+[Download pre-build Qt environment from here (487 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.18.0.development.0/Qt-6.8.3_Ubuntu-22.04.tar.gz)
 
 ## Build Docker image
 
