@@ -1,25 +1,34 @@
-# Ubuntu 22.04 Jammy Jellyfish
+# Ubuntu 22.04 for QMS V_1.18.0
 
-FROM ubuntu:22.04
+FROM	ubuntu:22.04
 
-LABEL description="QMapShack.AppImage development build"
+LABEL	description="QMapShack.AppImage development build"
 
 # Update packages
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y update \
+ENV	DEBIAN_FRONTEND=noninteractive
+RUN	apt-get -y update \
 	&& apt-get -y upgrade
 	
 # Install needed packages
-RUN apt-get -y install build-essential subversion wget git cmake qtbase5-dev \
-	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5webkit5-dev \
-	qtscript5-dev qttools5-dev-tools libqt5sql5-mysql qtwebengine5-dev \
-	libqt5sql5-mysql default-libmysqlclient-dev sqlite3 libsqlite3-dev \
-	libcurl4-nss-dev libtiff-dev libghc-bzlib-dev fuse libpython3-dev \
-	file libgraphics-magick-perl
+RUN	apt-get -y install build-essential wget subversion libxcb-cursor0 libxcb-cursor-dev \
+	cmake git libgl-dev libsqlite3-dev sqlite3 libtiff-dev libcurl4-nss-dev \
+	libxkbcommon-dev libvulkan-dev libcups2-dev libghc-bzlib-dev fuse file \
+	libwayland-cursor0 libwayland-egl1 libgtk-3-0 libxkbcommon-x11-0 libxcb-icccm4 \
+	libxcb-keysyms1 libxcb-shape0 libpq5 unixodbc-dev libmysqlclient-dev libglib2.0-0 \
+	libxcomposite1 libxdamage1 libxrandr2 libxrender1 libxtst6 libxi6 libasound2 \
+	libgbm1 libxkbfile1 libegl1
+
+# Copy the pre-build Qt environment from host
+RUN	mkdir -p /AppDir
+COPY	--chown=root:root Qt-6.8.3_Ubuntu-22.04.tar.gz /AppDir
+RUN	cd /AppDir \
+	&& tar xvzf Qt-6.8.3_Ubuntu-22.04.tar.gz \
+	&& rm Qt-6.8.3_Ubuntu-22.04.tar.gz \
+	&& cd /
 
 # Install PROJ 9.4.1
 # See https://proj.org/
-RUN wget https://download.osgeo.org/proj/proj-9.4.1.tar.gz \
+RUN	wget https://download.osgeo.org/proj/proj-9.4.1.tar.gz \
 	&& tar xzvf proj-9.4.1.tar.gz \
 	&& cd proj-9.4.1 \
 	&& mkdir build \
@@ -41,21 +50,24 @@ RUN wget https://github.com/OSGeo/gdal/releases/download/v3.9.0/gdal-3.9.0.tar.g
 	&& cd / \
 	&& rm -rf gdal-3.9.0.tar.gz gdal-3.9.0
 
-# Install QUAZIP 1.4
+# Install QUAZIP 1.5
 # See https://stachenov.github.io/quazip/
-RUN wget https://github.com/stachenov/quazip/archive/refs/tags/v1.4.tar.gz \
-	&& tar xvzf v1.4.tar.gz \
-	&& cd quazip-1.4 \
+RUN	wget https://github.com/stachenov/quazip/archive/refs/tags/v1.5.tar.gz \
+	&& tar xvzf v1.5.tar.gz \
+	&& cd quazip-1.5 \
 	&& mkdir build \
 	&& cd build \
-	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -D QUAZIP_QT_MAJOR_VERSION=5 \
+	&& cmake ..  \
+		-DCMAKE_PREFIX_PATH=/AppDir/Qt/6.8.3/gcc_64 \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DQUAZIP_QT_MAJOR_VERSION=6 \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf xvzf v1.4.tar.gz quazip-1.4
+	&& rm -rf xvzf v1.5.tar.gz quazip-1.5
 
-# Install Routino 3.4.1
+# Install Routino 3.4.3
 # See http://www.routino.org/
-RUN svn co http://routino.org/svn/trunk routino \
+RUN	svn co http://routino.org/svn/trunk routino \
 	&& cd routino \
 	&& sed -i '48 s|/usr/local|/usr|' Makefile.conf \
 	&& make -j$(nproc) \
@@ -64,47 +76,49 @@ RUN svn co http://routino.org/svn/trunk routino \
 	&& rm -rf routino
 
 # Install QMapShack, latest development commit
-# Make only - No make install
 # See https://github.com/Maproom/qmapshack
-# To be used when settinhg to a specific TAG/VERSION after cloning
-#	&& cd QMapShack \
-#	&& git checkout V_1.17.0 \
+# Make only - No make install
+# To be used when setting to a specific commit after cloning
+#	&& cd qmapshack \
+#	&& git checkout <commit|tag|branch> \
 #	&& cd .. \
-RUN git clone https://github.com/Maproom/qmapshack.git QMapShack \
-	&& mkdir build_QMapShack \
-	&& cd build_QMapShack \
-	&& cmake ../QMapShack \
+RUN	git clone https://github.com/Maproom/qmapshack.git \
+ 	&& mkdir build \
+ 	&& cd build \
+ 	&& cmake ../qmapshack \
+ 		-DBUILD_QMAPTOOL=OFF \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DBUILD_QMAPTOOL=OFF \
-	&& make qmapshack -j$(nproc) \
-	&& cd /
-
-# Install AppImage
+ 		-DCMAKE_PREFIX_PATH=/AppDir/Qt/6.8.3/gcc_64 \
+ 	&& make qmapshack -j$(nproc) \
+ 	&& cd /
+ 
+# Install needed tools to build the AppImage
 # See https://docs.appimage.org/packaging-guide/from-source/linuxdeploy-user-guide.html
-RUN wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+RUN	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
 	&& wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage \
+	&& wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage \
 	&& chmod +x linuxdeploy*.AppImage
 
-# Cleansing to reduce space - Disabled for Debugging
-# RUN apt-get -y clean \
-#	&& rm -rf /var/lib/apt/lists/*
-
-# Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
-RUN mkdir -p /AppDir/usr/share /AppDir/usr/bin \
+# Cleansing to reduce space in Docker image
+# Disabled for Debugging
+RUN apt-get -y clean \
+	&& rm -rf /var/lib/apt/lists/*
+ 
+# # Copy needed PROJ, GDAL, routino, Qt data to AppDir folder
+#  	# && cp -r /usr/share/qt5/translations /AppDir/usr
+RUN	mkdir -p /AppDir/usr/share /AppDir/usr/bin  /AppDir/usr/lib \
 	&& cp -r /usr/share/gdal /AppDir/usr/share \
-	&& cp -r /usr/share/proj /AppDir/usr/share \
+ 	&& cp -r /usr/share/proj /AppDir/usr/share \
 	&& cp -r /usr/share/routino /AppDir/usr/share \
 	&& cp /usr/bin/planetsplitter /AppDir/usr/bin \
-	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin \
-   	&& cp -r /usr/share/qt5/translations /AppDir/usr
-
+	&& cp /usr/bin/gdalbuildvrt /AppDir/usr/bin
+# 
 # Copy the needed scripts from host to root used by docker run
-COPY --chown=root:root build_AppImage.sh apprun.sh /
+COPY	--chown=root:root build_AppImage.sh apprun.sh /
 
-# Docker run will open a bash as default
-CMD ["/bin/bash"]
+# To open a bash as default
+CMD	["/bin/bash"]
 
-RUN echo "\n\n=====================================================" \
+RUN	echo "\n\n=====================================================" \
 	&& echo "QMapShack.AppImage Docker image successfully created!" \
 	&& echo "=====================================================\n\n"
-

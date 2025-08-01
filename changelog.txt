@@ -1,7 +1,17 @@
 QMapShack.AppImage
 ==================
 https://github.com/kkarsten62/QMapShack.AppImage
-https://github.com/kkarsten62/QMapShack.AppImage/wiki
+
+
+Version 1.18.0.development.0, 2025-08-01
+
+Bugs fixed and enhancements:
+
+[26] Provide QMS latest development builds based on top of QMS V_1.18.0
+- Latest QMS Commit [QMS-659], 2025-07-28:
+  "[QMS-659] POI file error and version handling"
+- One pre-build based on Ubuntu 22.04 for all Linux distribtions
+- Stop support for wiki pages
 
 
 Version 1.17.1.development.0, 2024-06-05

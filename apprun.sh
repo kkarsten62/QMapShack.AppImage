@@ -35,8 +35,10 @@ cp -r ${APPDIR}/usr/share/routino /tmp/qmsappimg/rto
 if [[ ($OS_VERSION == "fedora" && $OS_VERSION_ID == "40") || \
 	($OS_VERSION == "ubuntu" && $OS_VERSION_ID == '"24.04"') || \
 	($OS_VERSION == "manjaro" ) ]]; then
+	export LD_LIBRARY_PATH=${APPDIR}/Qt/6.8.3/gcc_64/lib
 	LIBGL_ALWAYS_INDIRECT=1 ${APPDIR}/usr/bin/qmapshack "$@"
 else
+	export LD_LIBRARY_PATH=${APPDIR}/Qt/6.8.3/gcc_64/lib
 	${APPDIR}/usr/bin/qmapshack "$@"
 fi
 
