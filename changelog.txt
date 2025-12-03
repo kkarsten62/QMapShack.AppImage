@@ -3,6 +3,16 @@ QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage
 
 
+Version 1.19.0.development.0, 2025-12-03
+
+Bugs fixed and enhancements:
+
+[27] Provide QMS latest development builds based on top of QMS V_1.19.0
+- Latest QMS Commit [QMS-659], 2025-07-28:
+  "[QMS-896] BRouter setup & download counter issues"
+- One pre-build based on Ubuntu 22.04 for all Linux distribtions
+
+
 Version 1.18.0.development.0, 2025-08-01
 
 Bugs fixed and enhancements:

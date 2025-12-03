@@ -27,18 +27,17 @@ cp -r ${APPDIR}/usr/share/doc/HTML /tmp/qmsappimg/HTML
 cp -r ${APPDIR}/usr/share/routino /tmp/qmsappimg/rto
 
 # Start QMapShack with prestart setting and QMapShack options
-# KKA, 2024-06-03: Workaround for following error:
+# KKA, 2025-12-03: Workaround for following error:
 # "MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)"
 # "glx: failed to create drisw screen"
 # See https://github.com/yuk7/ArchWSL/issues/341
-# First seen on Fedora 40, Ubuntu 24.04 and Manjaro 20240602
-if [[ ($OS_VERSION == "fedora" && $OS_VERSION_ID == "40") || \
-	($OS_VERSION == "ubuntu" && $OS_VERSION_ID == '"24.04"') || \
-	($OS_VERSION == "manjaro" ) ]]; then
-	export LD_LIBRARY_PATH=${APPDIR}/Qt/6.8.3/gcc_64/lib
-	LIBGL_ALWAYS_INDIRECT=1 ${APPDIR}/usr/bin/qmapshack "$@"
+# Currently seen on OPENsuse Leap 15.6 and Fedora 43
+export LD_LIBRARY_PATH=${APPDIR}/Qt/6.8.3/gcc_64/lib
+if [[ ($OS_VERSION == "\"opensuse-leap\"" && $OS_VERSION_ID == "\"15.6\"") ||
+	($OS_VERSION == "fedora" && $OS_VERSION_ID == "43") ]]; then
+	export LIBGL_ALWAYS_SOFTWARE=1
+	${APPDIR}/usr/bin/qmapshack "$@"
 else
-	export LD_LIBRARY_PATH=${APPDIR}/Qt/6.8.3/gcc_64/lib
 	${APPDIR}/usr/bin/qmapshack "$@"
 fi
 

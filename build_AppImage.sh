@@ -52,10 +52,10 @@ fi
 # KKA, 2024-06-03: Workaround for "Strip call error" in linuxdeploy
 # First seen on Fedora 40 and Manjaro 20240602
 # See https://github.com/linuxdeploy/linuxdeploy/issues/272
-if [[ ($OS_VERSION == "fedora" && $OS_VERSION_ID == "40") || \
-	($OS_VERSION == "manjaro") ]]; then
-	export NO_STRIP=true
-fi
+# if [[ ($OS_VERSION == "fedora" && $OS_VERSION_ID == "40") || \
+# 	($OS_VERSION == "manjaro") ]]; then
+# 	export NO_STRIP=true
+# fi
 
 # Run deploy
 $DEPLOY_CMD
@@ -63,7 +63,9 @@ $DEPLOY_CMD
 # Run deploy for Qt
 # For missing libqsqlmimer, see https://forum.qt.io/topic/154845/libmimerapi-so-not-found
 #./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer
-./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack -exclude-libs=libqsqlmimer
+if [[ $OS_VERSION == "ubuntu" && $OS_VERSION_ID == "22.04" ]]; then
+	./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack -exclude-libs=libqsqlmimer
+fi
 
 # Change back workaround for glibc = 2.36
 # if [[ $GLIBC_VERSION == "2.36" ]]; then

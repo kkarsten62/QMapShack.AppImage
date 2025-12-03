@@ -30,16 +30,15 @@ to the changes of the new prerequisites.
 * GDAL 3.9.0
 * QUAZIP 1.5
 * Routino 3.4.3
-* QMapShack V_1.8.0, development commit [11f5782](https://github.com/Maproom/qmapshack/commit/11f5782676ff194cf42f8438a1932f6b74af384d), [QMS-659] POI file error and version handling
+* QMapShack V_1.9.0, development commit [d089cf0](https://github.com/Maproom/qmapshack/commit/d089cf054a45286340d0c3055ec5d943d2aaaaed), [QMS-896] BRouter setup & download counter issues
 
-## Supported Linux distributions:
+## Tested Linux distributions:
 
 * Ubuntu 22.04 and 24.04
-* Fedora Workstation 41/42 / Gnome, KDE / Wayland
+* Fedora Workstation 42 and 43 / Gnome / Wayland
 * openSUSE 15.6 KDE
-* and maybe some more Linux distribution
 
-[Download pre-build QMapShack-x86_64.AppImage from here (613 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.18.0.development.0/QMapShack-x86_64.AppImage)
+[Download pre-build QMapShack-x86_64.AppImage from here (615 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.19.0.development.0/QMapShack-x86_64.AppImage)
 
 After download change user rights for execution:
 
@@ -85,7 +84,7 @@ Download repository from GitHub:
 
 For building process a manual built Qt environment is needed.
 
-[Download pre-build Qt environment from here (487 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.18.0.development.0/Qt-6.8.3_Ubuntu-22.04.tar.gz)
+[Download pre-build Qt environment from here (487 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.19.0.development.0/Qt-6.8.3_Ubuntu-22.04.tar.gz)
 
 ## Build Docker image
 
