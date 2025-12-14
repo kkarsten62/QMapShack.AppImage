@@ -34,8 +34,8 @@ to the changes of the new prerequisites.
 
 ## Tested Linux distributions:
 
-* Ubuntu 22.04 and 24.04
-* Fedora Workstation 42 and 43 / Gnome / Wayland
+* Ubuntu 22.04, 24.04, 25.10
+* Fedora Workstation 42, 43 / Gnome / Wayland
 * openSUSE 15.6 KDE
 
 [Download pre-build QMapShack-x86_64.AppImage from here (615 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.19.0.development.0/QMapShack-x86_64.AppImage)

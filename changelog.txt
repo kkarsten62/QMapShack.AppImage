@@ -8,9 +8,9 @@ Version 1.19.0.development.0, 2025-12-03
 Bugs fixed and enhancements:
 
 [27] Provide QMS latest development builds based on top of QMS V_1.19.0
-- Latest QMS Commit [QMS-659], 2025-07-28:
+- Latest QMS Commit [QMS-896], 2025-12-02:
   "[QMS-896] BRouter setup & download counter issues"
-- One pre-build based on Ubuntu 22.04 for all Linux distribtions
+- One pre-build based on Ubuntu 22.04 for all Linux distributions
 
 
 Version 1.18.0.development.0, 2025-08-01
@@ -20,7 +20,7 @@ Bugs fixed and enhancements:
 [26] Provide QMS latest development builds based on top of QMS V_1.18.0
 - Latest QMS Commit [QMS-659], 2025-07-28:
   "[QMS-659] POI file error and version handling"
-- One pre-build based on Ubuntu 22.04 for all Linux distribtions
+- One pre-build based on Ubuntu 22.04 for all Linux distributions
 - Stop support for wiki pages
 
 
