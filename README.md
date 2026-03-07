@@ -30,15 +30,16 @@ to the changes of the new prerequisites.
 * GDAL 3.9.0
 * QUAZIP 1.5
 * Routino 3.4.3
-* QMapShack V_1.9.0, development commit [d089cf0](https://github.com/Maproom/qmapshack/commit/d089cf054a45286340d0c3055ec5d943d2aaaaed), [QMS-896] BRouter setup & download counter issues
+* QMapShack V_1.20.1, development commit [8782065](https://github.com/Maproom/qmapshack/commit/8782065a3a2c2adfa27343a0b9d30f4754ce6f46),[QMS-998] Add progress bar to GPS devices while loading records
+
 
 ## Tested Linux distributions:
 
-* Ubuntu 22.04, 24.04, 25.10
+* Ubuntu 22.04, 24.04
 * Fedora Workstation 42, 43 / Gnome / Wayland
 * openSUSE 15.6 KDE
 
-[Download pre-build QMapShack-x86_64.AppImage from here (615 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.19.0.development.0/QMapShack-x86_64.AppImage)
+[Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.1.development.0/QMapShack-x86_64.AppImage)
 
 After download change user rights for execution:
 
