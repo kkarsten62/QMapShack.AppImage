@@ -30,16 +30,16 @@ to the changes of the new prerequisites.
 * GDAL 3.9.0
 * QUAZIP 1.5
 * Routino 3.4.3
-* QMapShack V_1.20.2, release commit [fc350fc](https://github.com/Maproom/qmapshack/commit/fc350fced172242911256120f56a798ac9688d47), Update version to 1.20.2
+* QMapShack V_1.20.3, commit [2c00386](https://github.com/Maproom/qmapshack/commit/2c0038663131460c7d4bbc0f3c35a16a17d5628b), [QMS-1105] Fix: Context menu shortcuts not shown (macOS)
 
 
 ## Tested Linux distributions:
 
-* Ubuntu 22.04, 24.04
-* Fedora Workstation 42, 43 / Gnome / Wayland
+* Ubuntu 22.04, 24.04, 26.04
+* Fedora Workstation 43, 44 / Gnome / Wayland
 * openSUSE 15.6 KDE
 
-[Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.2/QMapShack-x86_64.AppImage)
+[Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.3/QMapShack-x86_64.AppImage)
 
 After download change user rights for execution:
 

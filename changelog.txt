@@ -3,6 +3,16 @@ QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage
 
 
+Version 1.20.3, 2026-06-09
+
+Bugs fixed and enhancements:
+[30] Provide a release build based on QMS V_1.20.3
+- Latest QMS Commit, 2026-06-08:
+  "[QMS-1105] Fix: Context menu shortcuts not shown (macOS)"
+- One pre-build based on Ubuntu 22.04 for some Linux distributions
+- Successful initial test on Ubuntu 26.04
+
+
 Version 1.20.2, 2026-04-25
 
 Bugs fixed and enhancements:
