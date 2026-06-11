@@ -39,8 +39,10 @@ to the changes of the new prerequisites.
 * Fedora Workstation 43, 44 / Gnome / Wayland
 * openSUSE 15.6, 16.0 / KDE
 
-**Remark for openSUSE 16.0 KDE**
+**Remark for openSUSE 16.0 / KDE**
+
 To run QMapShack.AppImage in a new openSUSE 16.0 KDE system environment, two libraries must be installed:
+
 `sudo zypper install libatomic1 libgthread-2_0-0`
 
 [Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.3/QMapShack-x86_64.AppImage)
