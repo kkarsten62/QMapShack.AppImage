@@ -47,7 +47,7 @@ To run QMapShack.AppImage in a newly installed system environment, two libraries
 
 To run QMapShack.AppImage in a newly installed system environment, one library must be installed:
 
-`sudo apt installed libxcb-cursor0`
+`sudo apt install libxcb-cursor0`
 
 ## Download
 
