@@ -17,7 +17,7 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 
 `cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak`
 
-## Build based on:
+## Build based on
 
 * Ubuntu 22.04
 * GNOME / X11
@@ -30,7 +30,7 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 * Routino 3.4.3
 * QMapShack V_1.20.3, commit [2c00386](https://github.com/Maproom/qmapshack/commit/2c0038663131460c7d4bbc0f3c35a16a17d5628b), [QMS-1105] Fix: Context menu shortcuts not shown (macOS)
 
-## Tested Linux distributions:
+## Tested Linux distributions
 
 * Ubuntu 22.04, 24.04, 26.04
 * Fedora Workstation 43, 44 / Gnome / Wayland
@@ -158,12 +158,14 @@ Start building new QMapShack version with:
 `sudo docker run -it --privileged --rm -v $(pwd)/out:/out -e USER_ID=$(id -u):$(id -g) qms-appimage:0.0.0 /build_AppImage.sh`
 
 Check for latest information in terminal:
+
 ```
 ===================================================
 QMapShack.AppImage file successfully created!
 Check 'out' folder for new QMapShack.AppImage file
 ===================================================
 ```
+
 **Note:**
 * Run again when new development commits are in the QMapShack development branch, check [here](https://github.com/Maproom/qmapshack/commits/dev)
 * And think about to **backup** an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun
@@ -176,7 +178,7 @@ Additionally you can enter into the Docker container by using a bash shell to in
 
 Use `exit` to step out.
 
-# Start QMapShack.AppImage
+## Start QMapShack.AppImage
 
 `cd ~/GPS/qmapshack-AppImage/out`
 
@@ -184,11 +186,11 @@ Use `exit` to step out.
 	
 The `[options]` can be set according to QMapShack commandline options, see [here](https://github.com/Maproom/qmapshack/wiki/DocCmdOptions/) for more details.
 
-# Mount or extract QMapShack.AppImage
+## Mount or extract QMapShack.AppImage
 
 See [here](https://docs.appimage.org/user-guide/run-appimages.html#mount-an-appimage/) for detailed information.
 
-## Mount
+### Mount
 
 `cd ~/GPS/qmapshack-AppImage/out`
 
@@ -196,7 +198,7 @@ See [here](https://docs.appimage.org/user-guide/run-appimages.html#mount-an-appi
 
 Now, use another terminal or file manager to inspect the content of QMapShack.AppImage in the folder printed by `--appimage-mount`.
 
-## Extract
+### Extract
 
 `cd ~/GPS/qmapshack-AppImage/out`
 
