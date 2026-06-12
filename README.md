@@ -1,21 +1,19 @@
 # QMapShack.AppImage
 
-Build **ONE single QMapShack executable file** based on **QMapShack** latest development commits by using **Docker** and **AppImage**.
+Run or build an **AppImage** for **QMapShack**.
 
-* You are using a Linux distribution like Ubuntu, Fedora, openSUSE, Manjaro, ... ?
-* And you are not coding by your self?
-* So you would like not to set up a complex build environment on your computer?
-* But you would like to review and test the latest development commits?
+* You are using a Linux distribution like Ubuntu, Fedora, openSUSE, Mint, ... ?
+* And you would like to use [QMapShack](https://github.com/Maproom/qmapshack)?
+* And you would like not to set up a complex build environment on your computer?
 
 Then, may be you could use a ready to go one-click QMapshack.AppImage executable file.
 
-# Download a pre-build QMapShack.AppImage
+# Use a pre-build QMapShack.AppImage
 
  **Be aware:**
 
-* You are using software from a development branch. QMapShack is most of time quite stable during development process - but there is no guarantee!
-to the changes of the new prerequisites.
-* When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using QMapShack.AppImage. Do not forget to save your setting files also, for example in a Ubuntu and Fedora environment:
+* Some pre-build QMapShack.AppImages are build during the development process of QMapShack. QMapShack is usually quite stable during development process - but there is no guarantee!
+* When already using a stable QMapShack version it is advice to **backup** your existing personal QMapShack data (Tracks, Routes, DBs, Maps, etc.) prior for using a QMapShack.AppImage. Do not forget to save your setting files also, for example:
 
 `cp -r ~/.config/QLandkarte ~/.config/QLandkarte.bak`
 
@@ -32,18 +30,26 @@ to the changes of the new prerequisites.
 * Routino 3.4.3
 * QMapShack V_1.20.3, commit [2c00386](https://github.com/Maproom/qmapshack/commit/2c0038663131460c7d4bbc0f3c35a16a17d5628b), [QMS-1105] Fix: Context menu shortcuts not shown (macOS)
 
-
 ## Tested Linux distributions:
 
 * Ubuntu 22.04, 24.04, 26.04
 * Fedora Workstation 43, 44 / Gnome / Wayland
 * openSUSE 15.6, 16.0 / KDE
+* Linux Mint 22.3 "Zena" Cinnamon / Xfce / MATE
 
 **Remark for openSUSE 16.0 / KDE**
 
-To run QMapShack.AppImage in a new openSUSE 16.0 KDE system environment, two libraries must be installed:
+To run QMapShack.AppImage in a newly installed system environment, two libraries must be installed:
 
 `sudo zypper install libatomic1 libgthread-2_0-0`
+
+**Remark for Ubuntu 22.04 and Linux Mint 22.3 "Zena" Cinnamon / Xfce / MATE**
+
+To run QMapShack.AppImage in a newly installed system environment, one library must be installed:
+
+`sudo apt installed libxcb-cursor0`
+
+## Download
 
 [Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.3/QMapShack-x86_64.AppImage)
 
@@ -51,12 +57,23 @@ After download change user rights for execution:
 
 `chmod u+x QMapShack-x86_64.AppImage`
 
+## Start
+
+Open a terminal and enter:
+
+`./QMapShack-x86_64.AppImage`
+
+or to see the debug messages:
+
+`./QMapShack-x86_64.AppImage -d`
+
 # Build your your own QMapShack.AppImage
 
 ## Requirements
 
 * Computer with 64-bit architecture (x86_64)
 * A Linux distribution - able to run Docker software
+* Docker installation
 * At least ~5 GB free disk space
 * 1-2 hour for the initial Docker image build
 * 5 minutes for each development update
@@ -64,13 +81,14 @@ After download change user rights for execution:
 
 ## Install Docker
 
-Details about Docker and the installation steps for the wide range of Linux distribution can be found [here](https://docs.docker.com/engine/install/). An external installation guide for openSUSE can be found [here](https://www.osradar.com/install-docker-opensuse-15-2-15-1/), and for Manjaro [here](https://linuxconfig.org/manjaro-linux-docker-installation).
+Details about Docker and installation guides for some Linux distributions can be found [here](https://docs.docker.com/engine/install/). There are many installation guides available online for other Linux distributions.
 
-Verify that Docker Engine is installed correctly by running the `hello-world` image.
+Verify that Docker Engine is installed correctly by running the `hello-world` image:
 
 `sudo docker run hello-world`
 
-**Be aware:**
+**Note:**
+
 The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user. So please be carefull in using with root access rights (sudo). See [here](https://docs.docker.com/engine/install/linux-postinstall/) for more details.
 
 ## Download QMapShack.AppImage Git repository
@@ -87,9 +105,15 @@ Download repository from GitHub:
 
 `cd QMapShack.AppImage`
 
+**Note:**
+
+Docker also uses Git. To avoid conflicts during the build process, it is recommended that you delete or rename the `.git` directory:
+
+`mv .git .git.sik`
+
 ## Download pre-build Qt environment
 
-For building process a manual built Qt environment is needed.
+A manually built Qt environment is needed for the building process:
 
 [Download pre-build Qt environment from here (487 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.19.0.development.0/Qt-6.8.3_Ubuntu-22.04.tar.gz)
 
@@ -103,7 +127,7 @@ For example:
 
 `sudo docker build -t qms-appimage:0.0.0 --no-cache --file Dockerfile_Ubuntu-22.04 .`
 
-*Note:*
+**Note:**
 * Be patient and take a coffee, build process will take some time - about 1-2 hours
 * To save time, the `--no-cache` option can be omitted during testing, but should be set on final build run
 * In newer Docker versions you can use option `--progress=plain` to obtain classical plain terminal output during build process
@@ -140,7 +164,7 @@ QMapShack.AppImage file successfully created!
 Check 'out' folder for new QMapShack.AppImage file
 ===================================================
 ```
-*Note:*
+**Note:**
 * Run again when new development commits are in the QMapShack development branch, check [here](https://github.com/Maproom/qmapshack/commits/dev)
 * And think about to **backup** an existing `QMapShack-x86_64.AppImage` in `out` folder prior to the rerun
 
@@ -200,6 +224,12 @@ In a case of a strange behaviour in handling of QMapShack, it may help to delete
 A good practices could be also to start QMapShack.AppImage with a dedicated configration file using `-c` option to avoid conflicts with an existing QMapShack installation, like:
 
 `./QMapShack.AppImage -c myConfigFile.conf`
+
+## Prune your Docker environment
+
+From time to time, it is advisable to clean up the Docker environment. This frees up storage space. However, the build and run processes will need to be restarted.
+
+`sudo docker system prune`
 
 ---
 
