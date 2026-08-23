@@ -1,6 +1,6 @@
-# Ubuntu 22.04 for QMS V_1.20.3
+# Ubuntu 26.04 for QMS V_1.21.0
 
-FROM	ubuntu:22.04
+FROM	ubuntu:26.04
 
 LABEL	description="QMapShack.AppImage development build"
 
@@ -11,11 +11,11 @@ RUN	apt-get -y update \
 	
 # Install needed packages
 RUN	apt-get -y install build-essential wget subversion libxcb-cursor0 libxcb-cursor-dev \
-	cmake git libgl-dev libsqlite3-dev sqlite3 libtiff-dev libcurl4-nss-dev \
+	cmake git libgl-dev libsqlite3-dev sqlite3 libtiff-dev libcurl4-openssl-dev \
 	libxkbcommon-dev libvulkan-dev libcups2-dev libghc-bzlib-dev fuse file \
 	libwayland-cursor0 libwayland-egl1 libgtk-3-0 libxkbcommon-x11-0 libxcb-icccm4 \
 	libxcb-keysyms1 libxcb-shape0 libpq5 unixodbc-dev libmysqlclient-dev libglib2.0-0 \
-	libxcomposite1 libxdamage1 libxrandr2 libxrender1 libxtst6 libxi6 libasound2 \
+	libxcomposite1 libxdamage1 libxrandr2 libxrender1 libxtst6 libxi6 libasound2t64 \
 	libgbm1 libxkbfile1 libegl1
 
 # Copy the pre-build Qt environment from host
@@ -26,29 +26,29 @@ RUN	cd /AppDir \
 	&& rm Qt-6.8.3_Ubuntu-22.04.tar.gz \
 	&& cd /
 
-# Install PROJ 9.4.1
+# Install PROJ 9.8.1
 # See https://proj.org/
-RUN	wget https://download.osgeo.org/proj/proj-9.4.1.tar.gz \
-	&& tar xzvf proj-9.4.1.tar.gz \
-	&& cd proj-9.4.1 \
+RUN	wget https://download.osgeo.org/proj/proj-9.8.1.tar.gz \
+	&& tar xzvf proj-9.8.1.tar.gz \
+	&& cd proj-9.8.1 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf proj-9.4.1.tar.gz proj-9.4.1
+	&& rm -rf proj-9.8.1.tar.gz proj-9.8.1
 
-# Install GDAL 3.9.0
+# Install GDAL 3.13.3
 # See https://gdal.org/
-RUN wget https://github.com/OSGeo/gdal/releases/download/v3.9.0/gdal-3.9.0.tar.gz \
-	&& tar xvzf gdal-3.9.0.tar.gz \
-	&& cd gdal-3.9.0 \
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.13.3/gdal-3.13.3.tar.gz \
+	&& tar xvzf gdal-3.13.3.tar.gz \
+	&& cd gdal-3.13.3 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf gdal-3.9.0.tar.gz gdal-3.9.0
+	&& rm -rf gdal-3.13.3.tar.gz gdal-3.13.3
 
 # Install QUAZIP 1.5
 # See https://stachenov.github.io/quazip/

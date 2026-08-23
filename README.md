@@ -19,23 +19,20 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 
 ## Build based on
 
-* Ubuntu 22.04
+* Ubuntu 26.04
 * GNOME / X11
 * GLIBC 2.35
 * cmake 3.22.1
 * Qt 6.8.3
-* PROJ 9.4.1
-* GDAL 3.9.0
+* PROJ 9.8.1
+* GDAL 3.13.3
 * QUAZIP 1.5
 * Routino 3.4.3
-* QMapShack V_1.20.3, commit [2c00386](https://github.com/Maproom/qmapshack/commit/2c0038663131460c7d4bbc0f3c35a16a17d5628b), [QMS-1105] Fix: Context menu shortcuts not shown (macOS)
+* QMapShack V_1.21.0, commit [2ee7589](https://github.com/Maproom/qmapshack/commit/2ee75893bbf7ae13c4671233566507e3031cab58), Update version to 1.21.0
 
 ## Tested Linux distributions
 
-* Ubuntu 22.04, 24.04, 26.04
-* Fedora Workstation 43, 44 / Gnome / Wayland
-* openSUSE 15.6, 16.0 / KDE
-* Linux Mint 22.3 "Zena" Cinnamon / Xfce / MATE
+* Ubuntu 26.04
 
 **Remark for openSUSE 16.0 / KDE**
 
@@ -43,7 +40,7 @@ To run QMapShack.AppImage in a newly installed system environment, two libraries
 
 `sudo zypper install libatomic1 libgthread-2_0-0`
 
-**Remark for Ubuntu 22.04 and Linux Mint 22.3 "Zena" Cinnamon / Xfce / MATE**
+**Remark for Ubuntu 22.04+ and Linux Mint 22.3 "Zena" Cinnamon / Xfce / MATE**
 
 To run QMapShack.AppImage in a newly installed system environment, one library must be installed:
 
@@ -51,7 +48,7 @@ To run QMapShack.AppImage in a newly installed system environment, one library m
 
 ## Download
 
-[Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.3/QMapShack-x86_64.AppImage)
+[Download pre-build QMapShack-x86_64.AppImage from here (657 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.21.0/QMapShack-x86_64.AppImage)
 
 After download change user rights for execution:
 
@@ -75,7 +72,7 @@ or to see the debug messages:
 * A Linux distribution - able to run Docker software
 * Docker installation
 * At least ~5 GB free disk space
-* 1-2 hour for the initial Docker image build
+* 1-2 hour for the initial Docker image build (15mn on a 2024 laptop)
 * 5 minutes for each development update
 * Some Linux skills to handle a terminal
 
@@ -125,7 +122,7 @@ Build the image:
 
 For example:
 
-`sudo docker build -t qms-appimage:0.0.0 --no-cache --file Dockerfile_Ubuntu-22.04 .`
+`sudo docker build -t qms-appimage:0.0.0 --no-cache --file Dockerfile_Ubuntu-26.04 .`
 
 **Note:**
 * Be patient and take a coffee, build process will take some time - about 1-2 hours
