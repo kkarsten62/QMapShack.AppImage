@@ -22,13 +22,12 @@ Then, may be you could use a ready to go one-click QMapshack.AppImage executable
 * Ubuntu 22.04
 * GNOME / X11
 * GLIBC 2.35
-* cmake 3.22.1
+* CMake 4.4.3
 * Qt 6.8.3
-* PROJ 9.4.1
-* GDAL 3.9.0
-* QUAZIP 1.5
-* Routino 3.4.3
-* QMapShack V_1.20.3, commit [2c00386](https://github.com/Maproom/qmapshack/commit/2c0038663131460c7d4bbc0f3c35a16a17d5628b), [QMS-1105] Fix: Context menu shortcuts not shown (macOS)
+* PROJ 9.8.1
+* GDAL 3.13.2
+* Routino 3.4.4
+* QMapShack V_1.21.1, commit [7b5370b](https://github.com/Maproom/qmapshack/commit/7b5370b8af1c3d05a589770fb28208232a31f343), Update version to 1.21.1
 
 ## Tested Linux distributions
 
@@ -51,7 +50,7 @@ To run QMapShack.AppImage in a newly installed system environment, one library m
 
 ## Download
 
-[Download pre-build QMapShack-x86_64.AppImage from here (648 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.20.3/QMapShack-x86_64.AppImage)
+[Download pre-build QMapShack-x86_64.AppImage from here (688 MB)](https://github.com/kkarsten62/QMapShack.AppImage/releases/download/V_1.21.1/QMapShack-x86_64.AppImage)
 
 After download change user rights for execution:
 

@@ -3,6 +3,15 @@ QMapShack.AppImage
 https://github.com/kkarsten62/QMapShack.AppImage
 
 
+Version 1.21.1, 2026-09-07
+
+Bugs fixed and enhancements:
+[32] Provide a release build based on QMS V_1.21.1
+- Latest QMS Commit 7b5370b, 2026-09-05:
+  "Update version to 1.21.1"
+- One pre-build based on Ubuntu 22.04 for some Linux distributions
+
+
 Version 1.20.3, 2026-06-09
 
 Bugs fixed and enhancements:

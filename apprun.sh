@@ -31,10 +31,13 @@ cp -r ${APPDIR}/usr/share/routino /tmp/qmsappimg/rto
 # "MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)"
 # "glx: failed to create drisw screen"
 # See https://github.com/yuk7/ArchWSL/issues/341
-# Currently seen on OPENsuse Leap 15.6 and Fedora 43
+# Currently seen on openSUSE Leap 15.6 and Fedora 43, 44
 export LD_LIBRARY_PATH=${APPDIR}/Qt/6.8.3/gcc_64/lib
-if [[ ($OS_VERSION == "\"opensuse-leap\"" && $OS_VERSION_ID == "\"15.6\"") ||
-	($OS_VERSION == "fedora" && $OS_VERSION_ID == "43") ]]; then
+if [[
+       	($OS_VERSION == "\"opensuse-leap\"" && $OS_VERSION_ID == "\"15.6\"") ||
+	($OS_VERSION == "fedora" && $OS_VERSION_ID == "43") ||
+	($OS_VERSION == "fedora" && $OS_VERSION_ID == "44")
+   ]]; then
 	export LIBGL_ALWAYS_SOFTWARE=1
 	${APPDIR}/usr/bin/qmapshack "$@"
 else

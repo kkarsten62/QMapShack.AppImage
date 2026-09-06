@@ -34,11 +34,11 @@ DEPLOY_CMD="./linuxdeploy-x86_64.AppImage \
 	--output appimage"
 
 # Check for OS Ubuntu and add needed libs for Ubuntu
-if [[ $OS_VERSION == "ubuntu" && $OS_VERSION_ID == "22.04" ]]; then
-    DEPLOY_CMD="$DEPLOY_CMD \
-	--library /usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so \
-	--library /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so"
-fi
+# if [[ $OS_VERSION == "ubuntu" && $OS_VERSION_ID == "\"22.04\"" ]]; then
+#     DEPLOY_CMD="$DEPLOY_CMD \
+# 	--library /usr/lib/x86_64-linux-gnu/nss/libsoftokn3.so \
+# 	--library /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so"
+# fi
 
 # Workaround for glibc = 2.36 (ldd) update causes dynamic dependency failure
 # See https://github.com/linuxdeploy/linuxdeploy/issues/210
@@ -60,12 +60,12 @@ fi
 # Run deploy
 $DEPLOY_CMD
 
-# Run deploy for Qt
+# Run deploy for Qt, when Qt is installed from distribtion packages
 # For missing libqsqlmimer, see https://forum.qt.io/topic/154845/libmimerapi-so-not-found
-#./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer
-if [[ $OS_VERSION == "ubuntu" && $OS_VERSION_ID == "22.04" ]]; then
-	./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack -exclude-libs=libqsqlmimer
-fi
+# ./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer
+# if [[ $OS_VERSION == "ubuntu" && $OS_VERSION_ID == "\"22.04\"" ]]; then
+#  	./linuxdeployqt-continuous-x86_64.AppImage /AppDir/usr/bin/qmapshack
+# fi
 
 # Change back workaround for glibc = 2.36
 # if [[ $GLIBC_VERSION == "2.36" ]]; then

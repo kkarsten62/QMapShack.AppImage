@@ -1,4 +1,4 @@
-# Ubuntu 22.04 for QMS V_1.20.3
+# Ubuntu 22.04 for QMS V_1.21.1
 
 FROM	ubuntu:22.04
 
@@ -8,7 +8,13 @@ LABEL	description="QMapShack.AppImage development build"
 ENV	DEBIAN_FRONTEND=noninteractive
 RUN	apt-get -y update \
 	&& apt-get -y upgrade
-	
+
+# Integration of CMake for latest version
+RUN apt-get -y install ca-certificates gpg wget software-properties-common \
+	&& wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | gpg --dearmor -o /usr/share/keyrings/kitware-archive-keyring.gpg \
+	&& echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' | tee /etc/apt/sources.list.d/kitware.list > /dev/null \
+	&& apt update
+
 # Install needed packages
 RUN	apt-get -y install build-essential wget subversion libxcb-cursor0 libxcb-cursor-dev \
 	cmake git libgl-dev libsqlite3-dev sqlite3 libtiff-dev libcurl4-nss-dev \
@@ -18,7 +24,7 @@ RUN	apt-get -y install build-essential wget subversion libxcb-cursor0 libxcb-cur
 	libxcomposite1 libxdamage1 libxrandr2 libxrender1 libxtst6 libxi6 libasound2 \
 	libgbm1 libxkbfile1 libegl1
 
-# Copy the pre-build Qt environment from host
+# Copy the pre-build Qt environment from host, instead of distribution packages
 RUN	mkdir -p /AppDir
 COPY	--chown=root:root Qt-6.8.3_Ubuntu-22.04.tar.gz /AppDir
 RUN	cd /AppDir \
@@ -26,46 +32,31 @@ RUN	cd /AppDir \
 	&& rm Qt-6.8.3_Ubuntu-22.04.tar.gz \
 	&& cd /
 
-# Install PROJ 9.4.1
+# Install PROJ 9.8.1
 # See https://proj.org/
-RUN	wget https://download.osgeo.org/proj/proj-9.4.1.tar.gz \
-	&& tar xzvf proj-9.4.1.tar.gz \
-	&& cd proj-9.4.1 \
+RUN	wget https://download.osgeo.org/proj/proj-9.8.1.tar.gz \
+	&& tar xzvf proj-9.8.1.tar.gz \
+	&& cd proj-9.8.1 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf proj-9.4.1.tar.gz proj-9.4.1
+	&& rm -rf proj-9.8.1.tar.gz proj-9.8.1
 
-# Install GDAL 3.9.0
+# Install GDAL 3.13.3
 # See https://gdal.org/
-RUN wget https://github.com/OSGeo/gdal/releases/download/v3.9.0/gdal-3.9.0.tar.gz \
-	&& tar xvzf gdal-3.9.0.tar.gz \
-	&& cd gdal-3.9.0 \
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.13.3/gdal-3.13.3.tar.gz \
+	&& tar xvzf gdal-3.13.3.tar.gz \
+	&& cd gdal-3.13.3 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
 	&& cmake --build . -j$(nproc) --target install \
 	&& cd / \
-	&& rm -rf gdal-3.9.0.tar.gz gdal-3.9.0
+	&& rm -rf gdal-3.13.3.tar.gz gdal-3.13.3
 
-# Install QUAZIP 1.5
-# See https://stachenov.github.io/quazip/
-RUN	wget https://github.com/stachenov/quazip/archive/refs/tags/v1.5.tar.gz \
-	&& tar xvzf v1.5.tar.gz \
-	&& cd quazip-1.5 \
-	&& mkdir build \
-	&& cd build \
-	&& cmake ..  \
-		-DCMAKE_PREFIX_PATH=/AppDir/Qt/6.8.3/gcc_64 \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DQUAZIP_QT_MAJOR_VERSION=6 \
-	&& cmake --build . -j$(nproc) --target install \
-	&& cd / \
-	&& rm -rf xvzf v1.5.tar.gz quazip-1.5
-
-# Install Routino 3.4.3
+# Install Routino 3.4.4
 # See http://www.routino.org/
 RUN	svn co http://routino.org/svn/trunk routino \
 	&& cd routino \
